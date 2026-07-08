@@ -67,9 +67,10 @@
         .app-body .msg.user .time { color: rgba(255,255,255,0.6); }
         .app-body .msg .tag { color: #ff6b6b; font-weight: 600; }
         .app-body .msg .file-attach { display: block; margin-top: 4px; padding: 6px 10px; background: rgba(0,0,0,0.05); border-radius: 8px; font-size: 12px; }
-        .app-body .msg .file-attach audio { width: 100%; max-width: 200px; }
-        .app-body .msg .file-attach video { max-width: 200px; border-radius: 8px; }
-        .app-body .msg .file-attach img { max-width: 200px; border-radius: 8px; }
+        .app-body .msg .file-attach audio { width: 100%; max-width: 220px; height: 40px; }
+        .app-body .msg .file-attach video { max-width: 220px; border-radius: 8px; }
+        .app-body .msg .file-attach img { max-width: 220px; border-radius: 8px; }
+        .app-body .msg .voice-icon { font-size: 16px; margin-right: 4px; }
         
         /* Empty State */
         .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: #8888aa; text-align: center; }
@@ -393,9 +394,9 @@ const INVITE_CODES = generateInviteCodes();
 // DATABASE
 // ============================================================
 
-let users = JSON.parse(localStorage.getItem('zl_users_v7') || '{}');
-let groups = JSON.parse(localStorage.getItem('zl_groups_v7') || '{}');
-let friends = JSON.parse(localStorage.getItem('zl_friends_v7') || '{}');
+let users = JSON.parse(localStorage.getItem('zl_users_v8') || '{}');
+let groups = JSON.parse(localStorage.getItem('zl_groups_v8') || '{}');
+let friends = JSON.parse(localStorage.getItem('zl_friends_v8') || '{}');
 let currentUser = null;
 let currentGroup = null;
 let spamInterval = null;
@@ -429,9 +430,9 @@ if (!adminExists) {
     };
 }
 
-localStorage.setItem('zl_users_v7', JSON.stringify(users));
-localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
-localStorage.setItem('zl_friends_v7', JSON.stringify(friends));
+localStorage.setItem('zl_users_v8', JSON.stringify(users));
+localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
+localStorage.setItem('zl_friends_v8', JSON.stringify(friends));
 
 // ============================================================
 // SPLASH
@@ -498,7 +499,7 @@ function register() {
         friends: [],
         lastNameChange: Date.now()
     };
-    localStorage.setItem('zl_users_v7', JSON.stringify(users));
+    localStorage.setItem('zl_users_v8', JSON.stringify(users));
     msg.innerHTML = '<div class="success">✅ Đăng ký thành công! ID: ' + userId + '</div>';
     showToast('✅ Đăng ký thành công! ID: ' + userId, 'success');
     setTimeout(() => showLogin(), 1500);
@@ -527,7 +528,7 @@ function login() {
     }
     
     currentUser = phone;
-    localStorage.setItem('zl_current_user_v7', phone);
+    localStorage.setItem('zl_current_user_v8', phone);
     msg.innerHTML = '<div class="success">✅ Đăng nhập thành công!</div>';
     showToast('✅ Chào mừng ' + users[phone].name + '!', 'success');
     startApp();
@@ -539,7 +540,7 @@ function logout() {
     if (tagInterval) { clearInterval(tagInterval); tagInterval = null; }
     currentUser = null;
     currentGroup = null;
-    localStorage.removeItem('zl_current_user_v7');
+    localStorage.removeItem('zl_current_user_v8');
     document.getElementById('appScreen').classList.remove('active');
     document.getElementById('loginScreen').classList.add('active');
     document.getElementById('loginMsg').innerHTML = '';
@@ -644,7 +645,7 @@ function addMessage(text, sender = 'user', fileType = null, fileData = null) {
     const time = new Date().toLocaleTimeString('vi-VN');
     if (!g.messages) g.messages = [];
     g.messages.push({ text, sender, time, fileType, fileData });
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
     const body = document.getElementById('chatBody');
     const cls = sender === 'bot' ? 'bot' : (sender === 'system' ? 'system' : 'user');
     let content = text || '';
@@ -664,26 +665,43 @@ function addMessage(text, sender = 'user', fileType = null, fileData = null) {
     broadcastMessage(currentGroup, text, sender, time, fileType, fileData);
 }
 
-function addBotMsg(text) { addMessage(text, 'bot'); }
+function addBotMsg(text) { 
+    if (!currentGroup || !groups[currentGroup]) return;
+    // Kiểm tra bot có đang bật không
+    if (!botRunning) {
+        // Nếu bot tắt, vẫn hiển thị tin nhắn bot nhưng với dấu hiệu
+        addMessage('🤖 Bot đã tắt. Gõ /bat để bật lại.', 'bot');
+        return;
+    }
+    addMessage(text, 'bot'); 
+}
+
 function addSystemMsg(text) { addMessage(text, 'system'); }
-function addUserMsg(text) { addMessage(text, 'user'); }
+function addUserMsg(text) { 
+    // Kiểm tra bot trước khi gửi tin nhắn user
+    if (!botRunning) {
+        addBotMsg('🤖 Bot đã tắt. Gõ /bat để bật lại.');
+        return;
+    }
+    addMessage(text, 'user'); 
+}
 
 // ============================================================
 // REAL-TIME BROADCAST
 // ============================================================
 
 function broadcastMessage(groupId, text, sender, time, fileType, fileData) {
-    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast_v7') || '{}');
+    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast_v8') || '{}');
     const key = 'msg_' + groupId + '_' + Date.now();
     broadcast[key] = { groupId, text, sender, time, fileType, fileData };
     const keys = Object.keys(broadcast);
     if (keys.length > 100) { delete broadcast[keys[0]]; }
-    localStorage.setItem('zl_broadcast_v7', JSON.stringify(broadcast));
+    localStorage.setItem('zl_broadcast_v8', JSON.stringify(broadcast));
 }
 
 function listenBroadcast() {
-    const lastCheck = localStorage.getItem('zl_last_check_v7') || '0';
-    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast_v7') || '{}');
+    const lastCheck = localStorage.getItem('zl_last_check_v8') || '0';
+    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast_v8') || '{}');
     const now = Date.now();
     let newMessages = false;
     
@@ -720,10 +738,10 @@ function listenBroadcast() {
                     g.messages.push({ text: data.text, sender: 'bot', time: data.time || 'Vừa xong', fileType: data.fileType, fileData: data.fileData });
                 }
             }
-            localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
         }
     }
-    localStorage.setItem('zl_last_check_v7', String(now));
+    localStorage.setItem('zl_last_check_v8', String(now));
 }
 
 setInterval(listenBroadcast, 2000);
@@ -800,19 +818,19 @@ function sendMessage() {
         input.value = '';
         return;
     }
-    if (!botRunning && !msg.startsWith('/')) { 
-        addBotMsg('🤖 Bot đã tắt. Gõ /bat để bật lại.'); 
-        input.value = ''; 
-        return; 
-    }
-    input.value = '';
-    
-    // Xử lý lệnh trước khi gửi tin nhắn
+    // Xử lý lệnh trước
     if (msg.startsWith('/')) {
+        input.value = '';
         handleCommand(msg);
         return;
     }
-    
+    // Nếu bot tắt, không gửi tin nhắn user
+    if (!botRunning) {
+        addBotMsg('🤖 Bot đã tắt. Gõ /bat để bật lại.');
+        input.value = '';
+        return;
+    }
+    input.value = '';
     addUserMsg(msg);
     
     if (antilink) {
@@ -824,15 +842,16 @@ function sendMessage() {
                 const lastMsg = body.querySelector('.msg.user:last-child');
                 if (lastMsg) lastMsg.remove();
                 groups[currentGroup].messages.pop();
-                localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+                localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
                 addBotMsg('🚫 Bạn không được gửi link! Chỉ admin mới được.');
                 return;
             }
         }
     }
     
+    // Bot reply tự nhiên
     setTimeout(() => {
-        if (Math.random() < 0.08) {
+        if (Math.random() < 0.08 && botRunning) {
             const replies = ['Ừ!', 'OK!', 'Hi!', 'Chào!', '👍', '😄'];
             addBotMsg(replies[Math.floor(Math.random() * replies.length)]);
         }
@@ -847,7 +866,7 @@ function insertEmoji() {
 }
 
 // ============================================================
-// VOICE RECORDING & VOICE SYNTHESIS
+// VOICE RECORDING & VOICE SYNTHESIS - FIXED
 // ============================================================
 
 let isRecordingVoice = false;
@@ -867,28 +886,42 @@ function startVoiceRecording() {
         showToast('⚠️ Trình duyệt không hỗ trợ ghi âm!', 'error');
         return;
     }
+    if (!currentGroup || !groups[currentGroup]) {
+        showToast('⚠️ Vui lòng tạo nhóm trước!', 'error');
+        return;
+    }
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             mediaRecorderVoice = new MediaRecorder(stream);
             audioChunksVoice = [];
             mediaRecorderVoice.ondataavailable = event => {
-                audioChunksVoice.push(event.data);
+                if (event.data.size > 0) {
+                    audioChunksVoice.push(event.data);
+                }
             };
             mediaRecorderVoice.onstop = () => {
+                if (audioChunksVoice.length === 0) {
+                    showToast('⚠️ Không có dữ liệu voice!', 'error');
+                    return;
+                }
                 const audioBlob = new Blob(audioChunksVoice, { type: 'audio/webm' });
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const dataUrl = e.target.result;
+                    // Gửi voice lên group
                     addMessage('🎤 Voice', currentUser, 'audio', dataUrl);
+                    showToast('✅ Đã gửi voice!', 'success');
+                };
+                reader.onerror = function() {
+                    showToast('❌ Lỗi đọc file voice!', 'error');
                 };
                 reader.readAsDataURL(audioBlob);
                 stream.getTracks().forEach(track => track.stop());
                 document.getElementById('voiceBtn').textContent = '🎤';
                 document.getElementById('voiceBtn').classList.remove('recording');
                 isRecordingVoice = false;
-                showToast('✅ Đã ghi xong voice!', 'success');
             };
-            mediaRecorderVoice.start();
+            mediaRecorderVoice.start(100);
             isRecordingVoice = true;
             document.getElementById('voiceBtn').textContent = '⏹️';
             document.getElementById('voiceBtn').classList.add('recording');
@@ -902,6 +935,9 @@ function startVoiceRecording() {
 function stopVoiceRecording() {
     if (mediaRecorderVoice && isRecordingVoice) {
         mediaRecorderVoice.stop();
+        isRecordingVoice = false;
+    } else {
+        showToast('⚠️ Không có voice nào đang ghi!', 'error');
     }
 }
 
@@ -914,13 +950,42 @@ function botVoiceSynthesis(text) {
         addBotMsg('⚠️ Trình duyệt không hỗ trợ đọc voice!');
         return;
     }
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'vi-VN';
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-    window.speechSynthesis.speak(utterance);
-    addBotMsg(`🔊 Voice: "${text}"`);
+    // Kiểm tra bot có bật không
+    if (!botRunning) {
+        addBotMsg('🤖 Bot đã tắt. Gõ /bat để bật lại.');
+        return;
+    }
+    try {
+        // Tạo voice và gửi lên group
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'vi-VN';
+        utterance.rate = 0.9;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        
+        // Chọn giọng nữ nếu có
+        const voices = window.speechSynthesis.getVoices();
+        const vietnameseVoice = voices.find(v => v.lang === 'vi-VN');
+        if (vietnameseVoice) {
+            utterance.voice = vietnameseVoice;
+        }
+        
+        // Gửi tin nhắn voice vào group
+        addBotMsg(`🔊 Voice: "${text}"`);
+        
+        // Phát voice
+        window.speechSynthesis.speak(utterance);
+    } catch (e) {
+        addBotMsg('❌ Lỗi voice: ' + e.message);
+    }
+}
+
+// Load voices khi trang load
+if (window.speechSynthesis) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices();
+    };
 }
 
 // ============================================================
@@ -1008,7 +1073,7 @@ function handleCommand(cmd) {
             if (users[tag]?.isAdmin) { addBotMsg('❌ Không thể kick Admin!'); return; }
             g.members = g.members.filter(m => m !== tag);
             if (g.deputies) g.deputies = g.deputies.filter(m => m !== tag);
-            localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
             addSystemMsg(`🚫 ${users[tag]?.name || tag} đã bị kick khỏi nhóm!`);
             updateGroupInfo();
             break;
@@ -1021,7 +1086,7 @@ function handleCommand(cmd) {
             document.getElementById('chatBody').innerHTML = '';
             if (groups[currentGroup]) {
                 groups[currentGroup].messages = [];
-                localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+                localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
             }
             addBotMsg('🧹 Đã xóa hết tin nhắn!');
             break;
@@ -1049,7 +1114,7 @@ function uploadProfileAvatar(event) {
         const dataUrl = e.target.result;
         users[currentUser].avatarData = dataUrl;
         users[currentUser].avatar = '📷';
-        localStorage.setItem('zl_users_v7', JSON.stringify(users));
+        localStorage.setItem('zl_users_v8', JSON.stringify(users));
         document.getElementById('profileAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;"><div class="upload-overlay">📸 Đổi ảnh</div>`;
         showToast('✅ Đã đổi avatar!', 'success');
         updateGroupInfo();
@@ -1066,7 +1131,7 @@ function uploadGroupAvatar(event) {
         if (groups[currentGroup]) {
             groups[currentGroup].avatarData = dataUrl;
             groups[currentGroup].avatar = '📷';
-            localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
             document.getElementById('groupInfoAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;">`;
             showToast('✅ Đã đổi avatar nhóm!', 'success');
             updateGroupInfo();
@@ -1083,7 +1148,7 @@ function uploadGroupBg(event) {
         const dataUrl = e.target.result;
         if (groups[currentGroup]) {
             groups[currentGroup].bgData = dataUrl;
-            localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
             showToast('✅ Đã đổi hình nền nhóm!', 'success');
             updateGroupInfo();
         }
@@ -1098,6 +1163,11 @@ function uploadGroupBg(event) {
 function sendImage(event) {
     const file = event.target.files[0];
     if (!file) return;
+    if (!currentGroup || !groups[currentGroup]) {
+        showToast('⚠️ Vui lòng tạo nhóm trước!', 'error');
+        event.target.value = '';
+        return;
+    }
     const reader = new FileReader();
     reader.onload = function(e) {
         const dataUrl = e.target.result;
@@ -1110,6 +1180,11 @@ function sendImage(event) {
 function sendVideo(event) {
     const file = event.target.files[0];
     if (!file) return;
+    if (!currentGroup || !groups[currentGroup]) {
+        showToast('⚠️ Vui lòng tạo nhóm trước!', 'error');
+        event.target.value = '';
+        return;
+    }
     const reader = new FileReader();
     reader.onload = function(e) {
         const dataUrl = e.target.result;
@@ -1153,8 +1228,8 @@ function createGroup() {
         if (!users[m].groups) users[m].groups = [];
         if (!users[m].groups.includes(groupId)) users[m].groups.push(groupId);
     });
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
-    localStorage.setItem('zl_users_v7', JSON.stringify(users));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
+    localStorage.setItem('zl_users_v8', JSON.stringify(users));
     msg.innerHTML = '<div class="success">✅ Tạo nhóm thành công!</div>';
     showToast('✅ Đã tạo nhóm ' + name, 'success');
     currentGroup = groupId;
@@ -1162,8 +1237,10 @@ function createGroup() {
     updateGroupInfo();
     loadMessages();
     setTimeout(() => {
-        addBotMsg('🤖 Chào mừng đến nhóm ' + name + '!');
-        addBotMsg('📌 Tôi là bot của nhóm này. Gõ /menu để xem lệnh.');
+        if (botRunning) {
+            addBotMsg('🤖 Chào mừng đến nhóm ' + name + '!');
+            addBotMsg('📌 Tôi là bot của nhóm này. Gõ /menu để xem lệnh.');
+        }
     }, 500);
     document.getElementById('groupNameInput').value = '';
     document.getElementById('groupMemberInput').value = '';
@@ -1171,7 +1248,7 @@ function createGroup() {
 }
 
 // ============================================================
-// GROUP INFO - CHUYỂN CHỦ, PHÓ NHÓM
+// GROUP INFO
 // ============================================================
 
 function showGroupInfo() {
@@ -1202,7 +1279,6 @@ function renderMembers() {
         const isDeputy = g.deputies?.includes(m) || false;
         const isAdmin = u?.isAdmin || false;
         const label = isAdmin ? '👑' : (isOwner ? '👑' : (isDeputy ? '⭐' : ''));
-        // Không hiển thị nút gửi tin nhắn cho chủ nhóm
         const showKick = !isAdmin && m !== currentUser && m !== g.owner;
         membersHtml += `<div class="member">
             <span>${label} ${u?.name || m}</span>
@@ -1222,7 +1298,7 @@ function kickMember(phone) {
     if (phone === g.owner) { showToast('❌ Không thể kick chủ nhóm!', 'error'); return; }
     g.members = g.members.filter(m => m !== phone);
     if (g.deputies) g.deputies = g.deputies.filter(m => m !== phone);
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
     addSystemMsg(`🚫 ${users[phone]?.name || phone} đã bị kick khỏi nhóm!`);
     renderMembers();
     updateGroupInfo();
@@ -1240,7 +1316,7 @@ function transferOwner() {
     if (phone === g.owner) { showToast('❌ Người này đã là chủ nhóm!', 'error'); return; }
     g.owner = phone;
     if (g.deputies) g.deputies = g.deputies.filter(m => m !== phone);
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
     addSystemMsg(`👑 ${users[phone]?.name || phone} đã trở thành chủ nhóm mới!`);
     renderMembers();
     updateGroupInfo();
@@ -1260,7 +1336,7 @@ function addDeputy() {
     if (!g.deputies) g.deputies = [];
     if (g.deputies.includes(phone)) { showToast('⚠️ Thành viên đã là phó nhóm!', 'error'); return; }
     g.deputies.push(phone);
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
     addSystemMsg(`⭐ ${users[phone]?.name || phone} đã trở thành phó nhóm!`);
     renderMembers();
     updateGroupInfo();
@@ -1277,7 +1353,7 @@ function removeDeputy() {
     if (!phone || !users[phone]) { showToast('❌ Không tìm thấy thành viên!', 'error'); return; }
     if (!g.deputies || !g.deputies.includes(phone)) { showToast('❌ Thành viên không phải phó nhóm!', 'error'); return; }
     g.deputies = g.deputies.filter(m => m !== phone);
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
     addSystemMsg(`⭐ ${users[phone]?.name || phone} đã bị xóa phó nhóm!`);
     renderMembers();
     updateGroupInfo();
@@ -1295,7 +1371,7 @@ function updateGroupName() {
     if (!name) return;
     if (groups[currentGroup]) {
         groups[currentGroup].name = name;
-        localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
+        localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
         updateGroupInfo();
         showToast('✅ Đã đổi tên nhóm thành: ' + name, 'success');
     }
@@ -1310,8 +1386,8 @@ function leaveGroup() {
         delete groups[currentGroup];
         const userGroups = users[currentUser].groups.filter(id => id !== currentGroup);
         users[currentUser].groups = userGroups;
-        localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
-        localStorage.setItem('zl_users_v7', JSON.stringify(users));
+        localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
+        localStorage.setItem('zl_users_v8', JSON.stringify(users));
         currentGroup = null;
         closeGroupInfo();
         showToast('🗑️ Đã rời và xóa nhóm!', '');
@@ -1329,8 +1405,8 @@ function leaveGroup() {
     if (g.deputies) g.deputies = g.deputies.filter(m => m !== currentUser);
     const userGroups = users[currentUser].groups.filter(id => id !== currentGroup);
     users[currentUser].groups = userGroups;
-    localStorage.setItem('zl_groups_v7', JSON.stringify(groups));
-    localStorage.setItem('zl_users_v7', JSON.stringify(users));
+    localStorage.setItem('zl_groups_v8', JSON.stringify(groups));
+    localStorage.setItem('zl_users_v8', JSON.stringify(users));
     currentGroup = null;
     closeGroupInfo();
     showToast('🚪 Đã rời nhóm!', '');
@@ -1412,7 +1488,7 @@ function updateProfileName() {
     }
     u.name = name;
     u.lastNameChange = Date.now();
-    localStorage.setItem('zl_users_v7', JSON.stringify(users));
+    localStorage.setItem('zl_users_v8', JSON.stringify(users));
     showToast('✅ Đã cập nhật tên: ' + name, 'success');
     document.getElementById('profileName').readOnly = true;
     document.getElementById('nameLockInfo').textContent = '⏳ Có thể đổi tên sau 20 ngày nữa';
@@ -1478,7 +1554,7 @@ function addFriend() {
     friends[currentUser].push(targetUser);
     if (!friends[targetUser]) friends[targetUser] = [];
     if (!friends[targetUser].includes(currentUser)) friends[targetUser].push(currentUser);
-    localStorage.setItem('zl_friends_v7', JSON.stringify(friends));
+    localStorage.setItem('zl_friends_v8', JSON.stringify(friends));
     document.getElementById('addFriendInput').value = '';
     renderFriends();
     showToast('✅ Đã kết bạn với ' + users[targetUser].name + '!', 'success');
@@ -1592,7 +1668,7 @@ function showToast(msg, type = '') {
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    const savedUser = localStorage.getItem('zl_current_user_v7');
+    const savedUser = localStorage.getItem('zl_current_user_v8');
     if (savedUser && users[savedUser]) {
         currentUser = savedUser;
         const userGroups = users[currentUser]?.groups || [];
