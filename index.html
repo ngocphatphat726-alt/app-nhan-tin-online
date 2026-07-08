@@ -12,7 +12,7 @@
         .screen { display: none; padding: 24px; }
         .screen.active { display: block; }
         
-        /* ===== AUTH ===== */
+        /* AUTH */
         .auth-screen .logo { text-align: center; margin-bottom: 24px; }
         .auth-screen .logo h1 { color: #00d4ff; font-size: 28px; font-weight: 700; }
         .auth-screen .logo h1 span { color: #ff6b6b; }
@@ -26,14 +26,13 @@
         .auth-screen .switch span { color: #00d4ff; font-weight: 600; }
         .auth-screen .error { color: #ff4466; font-size: 13px; text-align: center; margin-top: 4px; }
         .auth-screen .success { color: #34c759; font-size: 13px; text-align: center; margin-top: 4px; }
-        .invite-codes { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin: 8px 0; }
-        .invite-codes .code { background: #00d4ff22; color: #00d4ff; padding: 4px 12px; border-radius: 6px; font-family: monospace; font-size: 12px; border: 1px solid #00d4ff44; }
+        .invite-codes { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; margin: 8px 0; max-height: 120px; overflow-y: auto; }
+        .invite-codes .code { background: #00d4ff22; color: #00d4ff; padding: 3px 10px; border-radius: 6px; font-family: monospace; font-size: 11px; border: 1px solid #00d4ff44; }
         
-        /* ===== APP ===== */
+        /* APP */
         .app-screen { display: none; flex-direction: column; height: 100vh; max-height: 750px; }
         .app-screen.active { display: flex; }
         
-        /* Header */
         .app-header { background: linear-gradient(135deg, #1a1a2e, #2a2a4a); padding: 10px 16px; border-bottom: 1px solid #2a2a4a; display: flex; justify-content: space-between; align-items: center; }
         .app-header .left { display: flex; align-items: center; gap: 10px; cursor: pointer; }
         .app-header .left .avatar { width: 42px; height: 42px; border-radius: 50%; background: linear-gradient(135deg, #00d4ff, #0070ff); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
@@ -42,9 +41,7 @@
         .app-header .left .info .sub { color: #8888aa; font-size: 11px; }
         .app-header .right { display: flex; gap: 10px; }
         .app-header .right button { background: none; border: none; color: #8888aa; font-size: 20px; cursor: pointer; padding: 4px; }
-        .app-header .right button:hover { color: #e8e8f0; }
         
-        /* Chat Body */
         .app-body { flex: 1; padding: 12px 16px; overflow-y: auto; background: #0d0d1a; display: flex; flex-direction: column; gap: 4px; max-height: 480px; }
         .app-body .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 14px; line-height: 1.5; word-wrap: break-word; }
         .app-body .msg.bot { background: #1a1a2e; color: #e8e8f0; border: 1px solid #2a2a4a; align-self: flex-start; }
@@ -53,14 +50,42 @@
         .app-body .msg .time { font-size: 10px; color: #666688; display: block; margin-top: 2px; }
         .app-body .msg .tag { color: #ff6b6b; font-weight: 600; }
         
-        /* Input */
         .app-input { display: flex; padding: 8px 12px; border-top: 1px solid #2a2a4a; background: #0a0a12; gap: 6px; align-items: center; }
         .app-input input { flex: 1; padding: 10px 14px; border-radius: 20px; border: 1px solid #333355; background: #0d0d1a; color: #e8e8f0; font-size: 14px; outline: none; }
         .app-input input:focus { border-color: #00d4ff; }
         .app-input button { padding: 10px 18px; border-radius: 20px; border: none; background: linear-gradient(135deg, #00d4ff, #0070ff); color: white; font-weight: 600; cursor: pointer; }
         .app-input .emoji-btn { background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px; }
         
-        /* ===== MENU ===== */
+        .tab-bar { display: flex; background: #0d0d1a; border-top: 1px solid #1a1a2e; }
+        .tab-bar .tab { flex: 1; padding: 8px 0; text-align: center; color: #8888aa; font-size: 12px; cursor: pointer; border: none; background: none; transition: 0.3s; }
+        .tab-bar .tab.active { color: #00d4ff; border-top: 2px solid #00d4ff; }
+        .tab-bar .tab .icon { font-size: 20px; display: block; }
+        
+        .footer-text { padding: 4px 16px; border-top: 1px solid #1a1a2e; text-align: center; color: #666688; font-size: 10px; }
+        
+        /* PROFILE */
+        .profile-box { background: #0d0d1a; border-radius: 16px; padding: 16px; border: 1px solid #2a2a4a; margin-top: 10px; }
+        .profile-box .avatar-large { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; background: linear-gradient(135deg, #00d4ff, #0070ff); display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; overflow: hidden; cursor: pointer; position: relative; }
+        .profile-box .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-box .avatar-large .upload-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; font-size: 10px; text-align: center; padding: 2px 0; display: none; }
+        .profile-box .avatar-large:hover .upload-overlay { display: block; }
+        .profile-box .name-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #333355; background: #0a0a12; color: #e8e8f0; font-size: 15px; margin-top: 8px; outline: none; text-align: center; }
+        .profile-box .name-input:focus { border-color: #00d4ff; }
+        .profile-box .info-row { display: flex; justify-content: space-between; padding: 6px 0; color: #8888aa; font-size: 13px; border-bottom: 1px solid #1a1a2e; }
+        .profile-box .info-row:last-child { border-bottom: none; }
+        .profile-box .info-row .label { color: #666688; }
+        .profile-box .info-row .value { color: #e8e8f0; }
+        
+        .group-settings { background: #0d0d1a; border-radius: 16px; padding: 16px; border: 1px solid #2a2a4a; margin-top: 10px; }
+        .group-settings input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #333355; background: #0a0a12; color: #e8e8f0; font-size: 14px; margin-bottom: 8px; outline: none; }
+        .group-settings input:focus { border-color: #00d4ff; }
+        .group-settings .btn-sm { padding: 8px 16px; border: none; border-radius: 10px; background: linear-gradient(135deg, #00d4ff, #0070ff); color: white; font-weight: 600; cursor: pointer; margin-right: 6px; }
+        .group-settings .btn-sm-danger { background: linear-gradient(135deg, #ff4466, #cc1133); }
+        .group-settings .member-list { max-height: 120px; overflow-y: auto; margin-top: 8px; }
+        .group-settings .member-list .member { display: flex; justify-content: space-between; padding: 4px 0; color: #c8c8e0; font-size: 13px; border-bottom: 1px solid #1a1a2e; }
+        .group-settings .avatar-large { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; overflow: hidden; cursor: pointer; position: relative; background: linear-gradient(135deg, #00d4ff, #0070ff); }
+        .group-settings .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+        
         .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 999; display: none; justify-content: center; align-items: center; padding: 20px; }
         .menu-overlay.active { display: flex; }
         .menu-panel { background: #1a1a2e; border-radius: 20px; padding: 24px; max-width: 400px; width: 100%; border: 1px solid #2a2a4a; max-height: 80vh; overflow-y: auto; }
@@ -71,41 +96,14 @@
         .menu-panel .item .desc { color: #8888aa; font-size: 12px; text-align: right; }
         .menu-panel .close-btn { width: 100%; padding: 12px; margin-top: 12px; border: none; border-radius: 12px; background: linear-gradient(135deg, #ff4466, #cc1133); color: white; font-weight: 600; cursor: pointer; }
         
-        /* ===== PROFILE ===== */
-        .profile-box { background: #0d0d1a; border-radius: 16px; padding: 16px; border: 1px solid #2a2a4a; margin-top: 10px; }
-        .profile-box .avatar-large { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; background: linear-gradient(135deg, #00d4ff, #0070ff); display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; overflow: hidden; cursor: pointer; }
-        .profile-box .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-box .name-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #333355; background: #0a0a12; color: #e8e8f0; font-size: 15px; margin-top: 8px; outline: none; text-align: center; }
-        .profile-box .name-input:focus { border-color: #00d4ff; }
-        .profile-box .info-row { display: flex; justify-content: space-between; padding: 6px 0; color: #8888aa; font-size: 13px; border-bottom: 1px solid #1a1a2e; }
-        .profile-box .info-row:last-child { border-bottom: none; }
-        .profile-box .info-row .label { color: #666688; }
-        .profile-box .info-row .value { color: #e8e8f0; }
-        
-        /* ===== GROUP SETTINGS ===== */
-        .group-settings { background: #0d0d1a; border-radius: 16px; padding: 16px; border: 1px solid #2a2a4a; margin-top: 10px; }
-        .group-settings input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #333355; background: #0a0a12; color: #e8e8f0; font-size: 14px; margin-bottom: 8px; outline: none; }
-        .group-settings input:focus { border-color: #00d4ff; }
-        .group-settings .btn-sm { padding: 8px 16px; border: none; border-radius: 10px; background: linear-gradient(135deg, #00d4ff, #0070ff); color: white; font-weight: 600; cursor: pointer; margin-right: 6px; }
-        .group-settings .btn-sm-danger { background: linear-gradient(135deg, #ff4466, #cc1133); }
-        .group-settings .member-list { max-height: 120px; overflow-y: auto; margin-top: 8px; }
-        .group-settings .member-list .member { display: flex; justify-content: space-between; padding: 4px 0; color: #c8c8e0; font-size: 13px; border-bottom: 1px solid #1a1a2e; }
-        
-        /* ===== TOAST ===== */
         .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #00d4ff22; border: 1px solid #00d4ff44; color: #00d4ff; padding: 12px 24px; border-radius: 12px; font-size: 14px; z-index: 1000; backdrop-filter: blur(10px); display: none; max-width: 90%; text-align: center; }
         .toast.show { display: block; animation: fadeIn 0.3s ease; }
         .toast.error { background: #ff004422; border-color: #ff004444; color: #ff4466; }
         .toast.success { background: #34c75922; border-color: #34c75944; color: #34c759; }
         @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
         
-        .footer-text { padding: 4px 16px; border-top: 1px solid #1a1a2e; text-align: center; color: #666688; font-size: 10px; }
-        
         .hidden { display: none !important; }
-        
-        .tab-bar { display: flex; background: #0d0d1a; border-top: 1px solid #1a1a2e; }
-        .tab-bar .tab { flex: 1; padding: 8px 0; text-align: center; color: #8888aa; font-size: 12px; cursor: pointer; border: none; background: none; transition: 0.3s; }
-        .tab-bar .tab.active { color: #00d4ff; border-top: 2px solid #00d4ff; }
-        .tab-bar .tab .icon { font-size: 20px; display: block; }
+        #fileInput, #groupFileInput, #profileFileInput { display: none; }
         
         @media (max-width: 400px) { .container { border-radius: 16px; } .auth-screen { padding: 20px 16px; } }
     </style>
@@ -116,7 +114,7 @@
 
 <div class="container">
 
-    <!-- ===== LOGIN ===== -->
+    <!-- LOGIN -->
     <div class="screen auth-screen active" id="loginScreen">
         <div class="logo">
             <h1>💬 Zalo <span>Clone</span></h1>
@@ -130,7 +128,7 @@
         <div id="loginMsg"></div>
     </div>
 
-    <!-- ===== REGISTER ===== -->
+    <!-- REGISTER -->
     <div class="screen auth-screen" id="registerScreen">
         <div class="logo">
             <h1>💬 Zalo <span>Clone</span></h1>
@@ -143,18 +141,12 @@
         <div class="switch" onclick="showLogin()">Đã có tài khoản? <span>Đăng nhập</span></div>
         <div id="regMsg"></div>
         <div style="margin-top:12px;color:#8888aa;font-size:12px;text-align:center;">
-            📌 10 MÃ MỜI:<br>
-            <div class="invite-codes">
-                <span class="code">VIP001</span><span class="code">VIP002</span>
-                <span class="code">VIP003</span><span class="code">VIP004</span>
-                <span class="code">VIP005</span><span class="code">VIP006</span>
-                <span class="code">VIP007</span><span class="code">VIP008</span>
-                <span class="code">VIP009</span><span class="code">VIP010</span>
-            </div>
+            📌 100 MÃ MỜI:<br>
+            <div class="invite-codes" id="inviteCodesDisplay"></div>
         </div>
     </div>
 
-    <!-- ===== APP ===== -->
+    <!-- APP -->
     <div class="app-screen" id="appScreen">
         <div class="app-header">
             <div class="left" onclick="showGroupInfo()">
@@ -188,7 +180,7 @@
         <div class="footer-text">⚡ Bot quản lý nhóm · Chỉ admin dùng lệnh</div>
     </div>
 
-    <!-- ===== CREATE GROUP ===== -->
+    <!-- CREATE GROUP -->
     <div class="screen auth-screen" id="createGroupScreen">
         <div class="logo">
             <h1>📁 Tạo <span>Nhóm</span></h1>
@@ -201,15 +193,17 @@
         <div id="createGroupMsg"></div>
     </div>
 
-    <!-- ===== GROUP INFO ===== -->
+    <!-- GROUP INFO -->
     <div class="screen auth-screen" id="groupInfoScreen">
         <div class="logo">
             <h1>📋 Thông tin <span>Nhóm</span></h1>
         </div>
         <div class="group-settings">
             <div style="text-align:center;margin-bottom:10px;">
-                <div class="avatar-large" style="width:80px;height:80px;border-radius:50%;margin:0 auto;background:linear-gradient(135deg,#00d4ff,#0070ff);display:flex;align-items:center;justify-content:center;font-size:32px;color:white;font-weight:700;cursor:pointer;overflow:hidden;" id="groupInfoAvatar" onclick="changeGroupAvatar()">G</div>
-                <div style="color:#8888aa;font-size:11px;margin-top:4px;cursor:pointer;" onclick="changeGroupAvatar()">📸 Thay đổi avatar</div>
+                <div class="avatar-large" id="groupInfoAvatar" onclick="document.getElementById('groupFileInput').click()">G
+                    <input type="file" id="groupFileInput" accept="image/*" onchange="uploadGroupAvatar(event)">
+                </div>
+                <div style="color:#8888aa;font-size:11px;cursor:pointer;" onclick="document.getElementById('groupFileInput').click()">📸 Thay đổi avatar</div>
             </div>
             <input type="text" id="groupInfoName" placeholder="Tên nhóm" onchange="updateGroupName()">
             <div class="member-list" id="groupInfoMembers"></div>
@@ -218,35 +212,41 @@
         </div>
     </div>
 
-    <!-- ===== PROFILE ===== -->
+    <!-- PROFILE -->
     <div class="screen auth-screen" id="profileScreen">
         <div class="logo">
             <h1>👤 Hồ sơ <span>của tôi</span></h1>
         </div>
         <div class="profile-box">
-            <div class="avatar-large" id="profileAvatar" onclick="changeProfileAvatar()">👤</div>
+            <div class="avatar-large" id="profileAvatar" onclick="document.getElementById('profileFileInput').click()">
+                <span id="profileAvatarText">👤</span>
+                <div class="upload-overlay">📸 Đổi ảnh</div>
+                <input type="file" id="profileFileInput" accept="image/*" onchange="uploadProfileAvatar(event)">
+            </div>
             <input class="name-input" id="profileName" placeholder="Tên của bạn" onchange="updateProfileName()">
+            <div class="info-row"><span class="label">🆔 ID</span><span class="value" id="profileId">---</span></div>
             <div class="info-row"><span class="label">👤 Tên đăng nhập</span><span class="value" id="profileUsername">---</span></div>
             <div class="info-row"><span class="label">🔑 Vai trò</span><span class="value" id="profileRole">---</span></div>
             <div class="info-row"><span class="label">📌 Mã mời</span><span class="value" id="profileInvite">---</span></div>
             <div class="info-row"><span class="label">📁 Số nhóm</span><span class="value" id="profileGroups">0</span></div>
+            <div class="info-row"><span class="label">👥 Bạn bè</span><span class="value" id="profileFriends">0</span></div>
             <button class="btn" onclick="closeProfile()" style="margin-top:12px;">🔙 Quay lại</button>
         </div>
     </div>
 
-    <!-- ===== FRIENDS ===== -->
+    <!-- FRIENDS -->
     <div class="screen auth-screen" id="friendsScreen">
         <div class="logo">
             <h1>👥 Bạn <span>bè</span></h1>
             <p>Danh sách bạn bè</p>
         </div>
         <div id="friendsList" style="margin-top:10px;"></div>
-        <input type="text" id="addFriendInput" placeholder="Tên bạn muốn kết bạn" style="width:100%;padding:12px;border-radius:12px;border:1px solid #333355;background:#0d0d1a;color:#e8e8f0;font-size:14px;margin-top:10px;outline:none;">
+        <input type="text" id="addFriendInput" placeholder="ID bạn muốn kết bạn" style="width:100%;padding:12px;border-radius:12px;border:1px solid #333355;background:#0d0d1a;color:#e8e8f0;font-size:14px;margin-top:10px;outline:none;">
         <button class="btn" onclick="addFriend()" style="margin-top:6px;">➕ Kết bạn</button>
         <button class="btn btn-secondary" onclick="closeFriends()" style="margin-top:6px;">🔙 Quay lại</button>
     </div>
 
-    <!-- ===== GROUPS LIST ===== -->
+    <!-- GROUPS LIST -->
     <div class="screen auth-screen" id="groupsListScreen">
         <div class="logo">
             <h1>📁 Danh sách <span>Nhóm</span></h1>
@@ -257,7 +257,7 @@
 
 </div>
 
-<!-- ===== MENU OVERLAY ===== -->
+<!-- MENU -->
 <div class="menu-overlay" id="menuOverlay">
     <div class="menu-panel">
         <div class="title">📋 MENU LỆNH</div>
@@ -283,9 +283,21 @@
 // DỮ LIỆU
 // ============================================================
 
-const INVITE_CODES = ['VIP001', 'VIP002', 'VIP003', 'VIP004', 'VIP005', 'VIP006', 'VIP007', 'VIP008', 'VIP009', 'VIP010'];
+// TẠO 100 MÃ MỜI THẬT
+function generateInviteCodes() {
+    const codes = [];
+    for (let i = 1; i <= 100; i++) {
+        const num = String(i).padStart(3, '0');
+        codes.push('ZL' + num + 'MK' + String(Math.floor(Math.random() * 9000 + 1000)));
+    }
+    return codes;
+}
+
+const INVITE_CODES = generateInviteCodes();
 const ADMIN_ROLES = ['truong', 'pho'];
-const DEFAULT_AVATARS = ['🦊', '🐶', '🐱', '🐼', '🐨', '🦁', '🐯', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦', '🐤', '🐣', '🐥', '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🐞', '🦋', '🐙', '🦑', '🐬', '🐳', '🐊', '🦕', '🦖'];
+const ADMIN_ACCOUNT = 'Ngọc phát';
+const ADMIN_PASSWORD = 'Ngocphat2013';
+const ADMIN_INVITE = 'mamoivip001';
 
 let users = JSON.parse(localStorage.getItem('zl_users') || '{}');
 let groups = JSON.parse(localStorage.getItem('zl_groups') || '{}');
@@ -298,16 +310,45 @@ let antilink = false;
 let botRunning = true;
 let currentTab = 'chat';
 
-// Admin mặc định
-if (!users['admin']) {
-    users['admin'] = { password: 'admin123', role: 'truong', invite: 'VIP001', groups: [], avatar: '🦊', name: 'Admin' };
+// Tạo tài khoản admin mặc định
+if (!users[ADMIN_ACCOUNT]) {
+    users[ADMIN_ACCOUNT] = {
+        password: ADMIN_PASSWORD,
+        role: 'truong',
+        invite: ADMIN_INVITE,
+        groups: [],
+        avatar: '👑',
+        name: 'Ngọc phát',
+        id: 'ZL' + String(Math.floor(Math.random() * 90000 + 10000))
+    };
 }
+
+// Tạo nhóm mặc định nếu chưa có
 if (Object.keys(groups).length === 0) {
-    groups['default'] = { name: 'Nhóm Chat Pro', owner: 'admin', members: ['admin'], messages: [], avatar: 'G' };
+    groups['default'] = {
+        name: 'Nhóm Chat Pro',
+        owner: ADMIN_ACCOUNT,
+        members: [ADMIN_ACCOUNT],
+        messages: [],
+        avatar: 'G'
+    };
 }
+
 localStorage.setItem('zl_users', JSON.stringify(users));
 localStorage.setItem('zl_groups', JSON.stringify(groups));
 localStorage.setItem('zl_friends', JSON.stringify(friends));
+
+// Hiển thị mã mời
+function renderInviteCodes() {
+    const container = document.getElementById('inviteCodesDisplay');
+    if (!container) return;
+    const isAdmin = currentUser === ADMIN_ACCOUNT;
+    const codes = isAdmin ? INVITE_CODES : INVITE_CODES.slice(0, 10);
+    container.innerHTML = codes.map(c => `<span class="code">${c}</span>`).join('');
+    if (!isAdmin) {
+        container.innerHTML += `<div style="width:100%;text-align:center;color:#8888aa;font-size:11px;margin-top:4px;">🔒 Admin có thể xem tất cả 100 mã</div>`;
+    }
+}
 
 // ============================================================
 // AUTH
@@ -316,6 +357,7 @@ localStorage.setItem('zl_friends', JSON.stringify(friends));
 function showRegister() {
     document.getElementById('loginScreen').classList.remove('active');
     document.getElementById('registerScreen').classList.add('active');
+    renderInviteCodes();
 }
 
 function showLogin() {
@@ -326,22 +368,34 @@ function showLogin() {
 function register() {
     const user = document.getElementById('regUser').value.trim();
     const pass = document.getElementById('regPass').value.trim();
-    const invite = document.getElementById('regInvite').value.trim().toUpperCase();
+    const invite = document.getElementById('regInvite').value.trim().toLowerCase();
     const msg = document.getElementById('regMsg');
     if (!user || !pass || !invite) { msg.innerHTML = '<div class="error">⚠️ Vui lòng nhập đầy đủ!</div>'; return; }
     if (users[user]) { msg.innerHTML = '<div class="error">❌ Tên đã tồn tại!</div>'; return; }
-    if (!INVITE_CODES.includes(invite)) { msg.innerHTML = '<div class="error">❌ Mã mời không hợp lệ!</div>'; return; }
-    users[user] = { password: pass, role: 'thanh_vien', invite: invite, groups: [], avatar: DEFAULT_AVATARS[Math.floor(Math.random() * DEFAULT_AVATARS.length)], name: user };
+    if (!INVITE_CODES.map(c => c.toLowerCase()).includes(invite)) {
+        msg.innerHTML = '<div class="error">❌ Mã mời không hợp lệ!</div>';
+        return;
+    }
+    const userId = 'ZL' + String(Math.floor(Math.random() * 90000 + 10000));
+    users[user] = {
+        password: pass,
+        role: 'thanh_vien',
+        invite: invite,
+        groups: [],
+        avatar: '👤',
+        name: user,
+        id: userId
+    };
     localStorage.setItem('zl_users', JSON.stringify(users));
-    msg.innerHTML = '<div class="success">✅ Đăng ký thành công!</div>';
-    showToast('✅ Đăng ký thành công!', 'success');
+    msg.innerHTML = '<div class="success">✅ Đăng ký thành công! ID của bạn: ' + userId + '</div>';
+    showToast('✅ Đăng ký thành công! ID: ' + userId, 'success');
     setTimeout(() => showLogin(), 1500);
 }
 
 function login() {
     const user = document.getElementById('loginUser').value.trim();
     const pass = document.getElementById('loginPass').value.trim();
-    const invite = document.getElementById('loginInvite').value.trim().toUpperCase();
+    const invite = document.getElementById('loginInvite').value.trim().toLowerCase();
     const msg = document.getElementById('loginMsg');
     if (!user || !pass || !invite) { msg.innerHTML = '<div class="error">⚠️ Vui lòng nhập đầy đủ!</div>'; return; }
     if (!users[user]) { msg.innerHTML = '<div class="error">❌ Tài khoản không tồn tại!</div>'; return; }
@@ -395,13 +449,19 @@ function startApp() {
     loadMessages();
     addSystemMsg('✅ ' + currentUser + ' đã vào nhóm!');
     switchTab('chat');
+    renderInviteCodes();
 }
 
 function updateGroupInfo() {
     const g = groups[currentGroup];
     if (!g) return;
     document.getElementById('groupName').textContent = g.name || 'Nhóm Chat';
-    document.getElementById('groupAvatar').textContent = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
+    const avatarEl = document.getElementById('groupAvatar');
+    if (g.avatarData) {
+        avatarEl.innerHTML = `<img src="${g.avatarData}" alt="avatar">`;
+    } else {
+        avatarEl.textContent = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
+    }
     document.getElementById('memberCount').textContent = '👥 ' + (g.members?.length || 1) + ' thành viên';
 }
 
@@ -590,6 +650,43 @@ function handleCommand(cmd) {
 }
 
 // ============================================================
+// UPLOAD AVATAR
+// ============================================================
+
+function uploadProfileAvatar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        users[currentUser].avatarData = dataUrl;
+        users[currentUser].avatar = '📷';
+        localStorage.setItem('zl_users', JSON.stringify(users));
+        document.getElementById('profileAvatarText').textContent = '';
+        document.getElementById('profileAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;"><div class="upload-overlay">📸 Đổi ảnh</div>`;
+        showToast('✅ Đã đổi avatar!', 'success');
+        updateGroupInfo();
+    };
+    reader.readAsDataURL(file);
+}
+
+function uploadGroupAvatar(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        groups[currentGroup].avatarData = dataUrl;
+        groups[currentGroup].avatar = '📷';
+        localStorage.setItem('zl_groups', JSON.stringify(groups));
+        document.getElementById('groupInfoAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;">`;
+        showToast('✅ Đã đổi avatar nhóm!', 'success');
+        updateGroupInfo();
+    };
+    reader.readAsDataURL(file);
+}
+
+// ============================================================
 // CREATE GROUP
 // ============================================================
 
@@ -609,7 +706,7 @@ function createGroup() {
     const msg = document.getElementById('createGroupMsg');
     if (!name) { msg.innerHTML = '<div class="error">⚠️ Nhập tên nhóm!</div>'; return; }
     const groupId = 'group_' + Date.now();
-    const avatar = DEFAULT_AVATARS[Math.floor(Math.random() * DEFAULT_AVATARS.length)];
+    const avatar = '📁';
     groups[groupId] = {
         name: name,
         owner: currentUser,
@@ -647,7 +744,12 @@ function showGroupInfo() {
     document.getElementById('groupInfoScreen').classList.add('active');
     const g = groups[currentGroup];
     document.getElementById('groupInfoName').value = g.name || '';
-    document.getElementById('groupInfoAvatar').textContent = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
+    const avatarEl = document.getElementById('groupInfoAvatar');
+    if (g.avatarData) {
+        avatarEl.innerHTML = `<img src="${g.avatarData}" style="width:100%;height:100%;object-fit:cover;">`;
+    } else {
+        avatarEl.textContent = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
+    }
     let membersHtml = '';
     g.members.forEach(m => {
         const role = users[m]?.role || 'thanh_vien';
@@ -672,16 +774,6 @@ function updateGroupName() {
     showToast('✅ Đã đổi tên nhóm thành: ' + name, 'success');
 }
 
-function changeGroupAvatar() {
-    const emojis = ['🦊','🐶','🐱','🐼','🐨','🦁','🐯','🐮','🐷','🐸','🐵','🐔','🐧','🐦','🐤','🦆','🦅','🦉','🦇','🐺','🐗','🐴','🦄','🐝','🐞','🦋','🐙','🦑','🐬','🐳','🐊','🦕','🦖','🎮','⚽','🏀','🎯','💎','🌈','🔥','⭐'];
-    const avatar = emojis[Math.floor(Math.random() * emojis.length)];
-    groups[currentGroup].avatar = avatar;
-    localStorage.setItem('zl_groups', JSON.stringify(groups));
-    document.getElementById('groupInfoAvatar').textContent = avatar;
-    updateGroupInfo();
-    showToast('✅ Đã đổi avatar nhóm!', 'success');
-}
-
 function leaveGroup() {
     if (!confirm('Bạn có chắc muốn rời nhóm này?')) return;
     const g = groups[currentGroup];
@@ -695,7 +787,6 @@ function leaveGroup() {
         currentGroup = null;
         closeGroupInfo();
         showToast('🗑️ Đã rời và xóa nhóm!', '');
-        // Tìm nhóm khác
         if (userGroups.length > 0 && groups[userGroups[0]]) {
             currentGroup = userGroups[0];
         } else {
@@ -750,17 +841,25 @@ function showProfile() {
     document.getElementById('appScreen').classList.remove('active');
     document.getElementById('profileScreen').classList.add('active');
     const u = users[currentUser];
+    document.getElementById('profileId').textContent = u?.id || '---';
     document.getElementById('profileUsername').textContent = currentUser;
     document.getElementById('profileRole').textContent = u?.role || 'thanh_vien';
     document.getElementById('profileInvite').textContent = u?.invite || '---';
     document.getElementById('profileGroups').textContent = u?.groups?.length || 0;
+    document.getElementById('profileFriends').textContent = (friends[currentUser]?.length || 0);
     document.getElementById('profileName').value = u?.name || currentUser;
-    document.getElementById('profileAvatar').textContent = u?.avatar || '👤';
+    const avatarEl = document.getElementById('profileAvatar');
+    if (u?.avatarData) {
+        avatarEl.innerHTML = `<img src="${u.avatarData}" style="width:100%;height:100%;object-fit:cover;"><div class="upload-overlay">📸 Đổi ảnh</div>`;
+    } else {
+        avatarEl.innerHTML = `<span id="profileAvatarText">${u?.avatar || '👤'}</span><div class="upload-overlay">📸 Đổi ảnh</div>`;
+    }
 }
 
 function closeProfile() {
     document.getElementById('profileScreen').classList.remove('active');
     document.getElementById('appScreen').classList.add('active');
+    switchTab('chat');
 }
 
 function updateProfileName() {
@@ -769,15 +868,6 @@ function updateProfileName() {
     users[currentUser].name = name;
     localStorage.setItem('zl_users', JSON.stringify(users));
     showToast('✅ Đã cập nhật tên: ' + name, 'success');
-}
-
-function changeProfileAvatar() {
-    const emojis = ['👤','😊','😎','🤩','🥰','😍','💪','🔥','⭐','🌟','💎','🌈','🎮','⚽','🏀','🎯','🦊','🐶','🐱','🐼','🐨','🦁','🐯'];
-    const avatar = emojis[Math.floor(Math.random() * emojis.length)];
-    users[currentUser].avatar = avatar;
-    localStorage.setItem('zl_users', JSON.stringify(users));
-    document.getElementById('profileAvatar').textContent = avatar;
-    showToast('✅ Đã đổi avatar!', 'success');
 }
 
 // ============================================================
@@ -800,34 +890,38 @@ function renderFriends() {
     const list = document.getElementById('friendsList');
     const friendList = friends[currentUser] || [];
     if (friendList.length === 0) {
-        list.innerHTML = '<div style="color:#8888aa;text-align:center;padding:20px;">Chưa có bạn bè. Hãy kết bạn!</div>';
+        list.innerHTML = '<div style="color:#8888aa;text-align:center;padding:20px;">Chưa có bạn bè. Hãy kết bạn bằng ID!</div>';
         return;
     }
     list.innerHTML = friendList.map(f => {
         const u = users[f];
-        const avatar = u?.avatar || '👤';
+        const avatar = u?.avatarData ? `<img src="${u.avatarData}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;">` : (u?.avatar || '👤');
         const name = u?.name || f;
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;border-bottom:1px solid #1a1a2e;">
-            <span>${avatar} ${name}</span>
-            <span style="color:#8888aa;font-size:12px;">${f}</span>
+            <span>${typeof avatar === 'string' ? avatar : avatar} ${name}</span>
+            <span style="color:#8888aa;font-size:11px;">ID: ${u?.id || f}</span>
         </div>`;
     }).join('');
 }
 
 function addFriend() {
-    const name = document.getElementById('addFriendInput').value.trim();
-    if (!name) { showToast('⚠️ Nhập tên bạn muốn kết bạn!', 'error'); return; }
-    if (name === currentUser) { showToast('❌ Không thể kết bạn với chính mình!', 'error'); return; }
-    if (!users[name]) { showToast('❌ Không tìm thấy người dùng!', 'error'); return; }
+    const input = document.getElementById('addFriendInput').value.trim();
+    if (!input) { showToast('⚠️ Nhập ID bạn muốn kết bạn!', 'error'); return; }
+    let targetUser = null;
+    for (const [name, data] of Object.entries(users)) {
+        if (data.id === input) { targetUser = name; break; }
+    }
+    if (!targetUser) { showToast('❌ Không tìm thấy ID!', 'error'); return; }
+    if (targetUser === currentUser) { showToast('❌ Không thể kết bạn với chính mình!', 'error'); return; }
     if (!friends[currentUser]) friends[currentUser] = [];
-    if (friends[currentUser].includes(name)) { showToast('⚠️ Đã là bạn bè rồi!', 'error'); return; }
-    friends[currentUser].push(name);
-    if (!friends[name]) friends[name] = [];
-    if (!friends[name].includes(currentUser)) friends[name].push(currentUser);
+    if (friends[currentUser].includes(targetUser)) { showToast('⚠️ Đã là bạn bè rồi!', 'error'); return; }
+    friends[currentUser].push(targetUser);
+    if (!friends[targetUser]) friends[targetUser] = [];
+    if (!friends[targetUser].includes(currentUser)) friends[targetUser].push(currentUser);
     localStorage.setItem('zl_friends', JSON.stringify(friends));
     document.getElementById('addFriendInput').value = '';
     renderFriends();
-    showToast('✅ Đã kết bạn với ' + name + '!', 'success');
+    showToast('✅ Đã kết bạn với ' + targetUser + '!', 'success');
 }
 
 // ============================================================
@@ -856,11 +950,11 @@ function renderGroupsList() {
     list.innerHTML = userGroups.map(id => {
         const g = groups[id];
         if (!g) return '';
-        const avatar = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
+        const avatar = g.avatarData ? `<img src="${g.avatarData}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;">` : (g.avatar || g.name?.charAt(0).toUpperCase() || 'G');
         const isCurrent = id === currentGroup;
         return `<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #1a1a2e;cursor:pointer;background:${isCurrent ? '#00d4ff11' : 'transparent'};" onclick="switchGroup('${id}')">
-            <span>${avatar} ${g.name}</span>
-            <span style="color:#8888aa;font-size:12px;">${g.members?.length || 0} thành viên ${isCurrent ? '✅' : ''}</span>
+            <span>${typeof avatar === 'string' ? avatar : avatar} ${g.name}</span>
+            <span style="color:#8888aa;font-size:11px;">${g.members?.length || 0} TV ${isCurrent ? '✅' : ''}</span>
         </div>`;
     }).join('');
 }
@@ -882,7 +976,9 @@ function switchGroup(id) {
 function switchTab(tab) {
     currentTab = tab;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.querySelector(`.tab:nth-child(${tab === 'chat' ? 1 : tab === 'friends' ? 2 : tab === 'groups' ? 3 : 4})`)?.classList.add('active');
+    const tabMap = { chat: 0, friends: 1, groups: 2, profile: 3 };
+    const idx = tabMap[tab] || 0;
+    document.querySelectorAll('.tab')[idx]?.classList.add('active');
     
     document.getElementById('appScreen').classList.remove('active');
     if (tab === 'chat') {
@@ -948,9 +1044,11 @@ document.addEventListener('DOMContentLoaded', function() {
         loadMessages();
         addSystemMsg('✅ ' + currentUser + ' đã vào nhóm!');
         switchTab('chat');
+        renderInviteCodes();
         return;
     }
     document.getElementById('loginScreen').classList.add('active');
+    renderInviteCodes();
 });
 </script>
 </body>
