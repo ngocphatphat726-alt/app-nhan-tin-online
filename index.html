@@ -6,14 +6,13 @@
     <title>Zalo - Kết nối bạn bè</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background: #f0f2f5; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px; }
+        body { background: #eef0f3; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 16px; }
         .container { background: #ffffff; max-width: 480px; width: 100%; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.15); overflow: hidden; position: relative; min-height: 700px; }
         
-        /* ===== SCREENS ===== */
-        .screen { display: none; padding: 24px; }
+        .screen { display: none; }
         .screen.active { display: block; }
         
-        /* ===== SPLASH ===== */
+        /* SPLASH */
         .splash-screen { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100vh; min-height: 700px; padding: 40px; text-align: center; background: linear-gradient(135deg, #0068ff, #0055cc); }
         .splash-screen.active { display: flex; }
         .splash-screen .logo-icon { font-size: 80px; margin-bottom: 16px; }
@@ -23,60 +22,67 @@
         .splash-screen .loading-bar .fill { height: 100%; width: 0%; background: #ffffff; border-radius: 4px; animation: loadingAnim 2s ease-in-out forwards; }
         @keyframes loadingAnim { 0% { width: 0%; } 100% { width: 100%; } }
         
-        /* ===== AUTH ===== */
-        .auth-screen .logo { text-align: center; margin-bottom: 28px; }
+        /* AUTH - ZALO STYLE */
+        .auth-screen .logo { text-align: center; margin-bottom: 28px; padding-top: 20px; }
         .auth-screen .logo h1 { color: #0068ff; font-size: 32px; font-weight: 700; }
         .auth-screen .logo p { color: #8888aa; font-size: 14px; margin-top: 4px; }
         .auth-screen input { width: 100%; padding: 14px 16px; border-radius: 12px; border: 1px solid #e0e0e0; background: #f8f9fa; color: #1a1a2e; font-size: 15px; margin-bottom: 12px; outline: none; transition: 0.3s; }
         .auth-screen input:focus { border-color: #0068ff; box-shadow: 0 0 0 3px rgba(0,104,255,0.15); background: #ffffff; }
-        .auth-screen .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: linear-gradient(135deg, #0068ff, #0055cc); color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .auth-screen .btn:hover { transform: scale(1.02); }
-        .auth-screen .btn-secondary { background: linear-gradient(135deg, #e8ecf1, #d5dae3); color: #1a1a2e; }
+        .auth-screen .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; background: #0068ff; color: white; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .auth-screen .btn:hover { opacity: 0.9; }
+        .auth-screen .btn-secondary { background: #e8ecf1; color: #1a1a2e; }
         .auth-screen .switch { color: #8888aa; font-size: 13px; text-align: center; margin-top: 12px; cursor: pointer; }
         .auth-screen .switch span { color: #0068ff; font-weight: 600; }
         .auth-screen .error { color: #ff4466; font-size: 13px; text-align: center; margin-top: 4px; }
         .auth-screen .success { color: #34c759; font-size: 13px; text-align: center; margin-top: 4px; }
         
-        /* ===== APP ===== */
+        /* APP - ZALO STYLE 100% */
         .app-screen { display: none; flex-direction: column; height: 100vh; max-height: 750px; background: #f0f2f5; }
         .app-screen.active { display: flex; }
         
-        /* Header Zalo Style */
-        .app-header { background: #0068ff; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+        /* Header Zalo */
+        .app-header { background: #0068ff; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; min-height: 56px; }
         .app-header .left { display: flex; align-items: center; gap: 10px; cursor: pointer; flex: 1; }
-        .app-header .left .avatar { width: 42px; height: 42px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
+        .app-header .left .avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; font-weight: 600; flex-shrink: 0; overflow: hidden; }
         .app-header .left .avatar img { width: 100%; height: 100%; object-fit: cover; }
         .app-header .left .info .name { color: #ffffff; font-size: 16px; font-weight: 600; }
         .app-header .left .info .sub { color: rgba(255,255,255,0.7); font-size: 11px; }
         .app-header .right { display: flex; gap: 4px; align-items: center; }
-        .app-header .right button { background: rgba(255,255,255,0.15); border: none; color: white; font-size: 18px; cursor: pointer; padding: 4px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
+        .app-header .right button { background: rgba(255,255,255,0.15); border: none; color: white; font-size: 18px; cursor: pointer; padding: 4px; width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
         .app-header .right button:hover { background: rgba(255,255,255,0.25); }
         
         /* Chat Body */
-        .app-body { flex: 1; padding: 12px 16px; overflow-y: auto; background: #f0f2f5; display: flex; flex-direction: column; gap: 4px; max-height: 480px; }
-        .app-body .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 14px; line-height: 1.5; word-wrap: break-word; position: relative; }
+        .app-body { flex: 1; padding: 12px 16px; overflow-y: auto; background: #f0f2f5; display: flex; flex-direction: column; gap: 2px; max-height: 460px; }
+        .app-body .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; font-size: 14px; line-height: 1.5; word-wrap: break-word; position: relative; margin-bottom: 2px; }
         .app-body .msg.bot { background: #ffffff; color: #1a1a2e; border: 1px solid #e8ecf1; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
         .app-body .msg.user { background: #0068ff; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; box-shadow: 0 1px 2px rgba(0,104,255,0.2); }
-        .app-body .msg.system { background: rgba(0,0,0,0.05); color: #666688; border: none; align-self: center; text-align: center; font-size: 12px; max-width: 90%; border-radius: 16px; padding: 6px 16px; }
+        .app-body .msg.system { background: rgba(0,0,0,0.05); color: #666688; border: none; align-self: center; text-align: center; font-size: 12px; max-width: 90%; border-radius: 16px; padding: 4px 16px; }
         .app-body .msg .time { font-size: 10px; color: #8888aa; display: block; margin-top: 2px; }
         .app-body .msg.user .time { color: rgba(255,255,255,0.6); }
         .app-body .msg .tag { color: #ff6b6b; font-weight: 600; }
         
-        /* Input Zalo Style */
+        /* Input Zalo */
         .app-input { display: flex; padding: 8px 12px; border-top: 1px solid #e8ecf1; background: #ffffff; gap: 6px; align-items: center; }
         .app-input input { flex: 1; padding: 10px 14px; border-radius: 20px; border: 1px solid #e8ecf1; background: #f8f9fa; color: #1a1a2e; font-size: 14px; outline: none; transition: 0.3s; }
         .app-input input:focus { border-color: #0068ff; background: #ffffff; box-shadow: 0 0 0 3px rgba(0,104,255,0.1); }
-        .app-input button { padding: 10px 18px; border-radius: 20px; border: none; background: linear-gradient(135deg, #0068ff, #0055cc); color: white; font-weight: 600; cursor: pointer; }
+        .app-input button { padding: 10px 18px; border-radius: 20px; border: none; background: #0068ff; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .app-input button:hover { opacity: 0.9; }
         .app-input .emoji-btn { background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px; width: 36px; }
         
-        /* Tab Bar Zalo Style */
+        /* Tab Bar Zalo */
         .tab-bar { display: flex; background: #ffffff; border-top: 1px solid #e8ecf1; }
-        .tab-bar .tab { flex: 1; padding: 8px 0; text-align: center; color: #8888aa; font-size: 11px; cursor: pointer; border: none; background: none; transition: 0.3s; position: relative; }
+        .tab-bar .tab { flex: 1; padding: 6px 0 8px; text-align: center; color: #8888aa; font-size: 11px; cursor: pointer; border: none; background: none; transition: 0.3s; position: relative; }
         .tab-bar .tab.active { color: #0068ff; }
-        .tab-bar .tab.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 20px; height: 2px; background: #0068ff; border-radius: 2px; }
+        .tab-bar .tab.active::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 24px; height: 2px; background: #0068ff; border-radius: 2px; }
         .tab-bar .tab .icon { font-size: 22px; display: block; margin-bottom: 2px; }
         
-        /* ===== PROFILE ===== */
+        /* Empty State Zalo */
+        .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 20px; color: #8888aa; text-align: center; }
+        .empty-state .icon { font-size: 64px; margin-bottom: 16px; opacity: 0.5; }
+        .empty-state h3 { color: #1a1a2e; font-size: 18px; margin-bottom: 6px; }
+        .empty-state p { font-size: 14px; }
+        
+        /* Profile */
         .profile-box { background: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e8ecf1; margin-top: 10px; }
         .profile-box .avatar-large { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; background: linear-gradient(135deg, #0068ff, #0055cc); display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; overflow: hidden; cursor: pointer; position: relative; }
         .profile-box .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
@@ -88,18 +94,22 @@
         .profile-box .info-row:last-child { border-bottom: none; }
         .profile-box .info-row .label { color: #8888aa; }
         .profile-box .info-row .value { color: #1a1a2e; }
+        .profile-box .name-lock { color: #ff6b6b; font-size: 12px; text-align: center; margin-top: 4px; }
         
         .group-settings { background: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e8ecf1; margin-top: 10px; }
         .group-settings input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 1px solid #e8ecf1; background: #f8f9fa; color: #1a1a2e; font-size: 14px; margin-bottom: 8px; outline: none; }
         .group-settings input:focus { border-color: #0068ff; background: #ffffff; }
-        .group-settings .btn-sm { padding: 8px 16px; border: none; border-radius: 10px; background: linear-gradient(135deg, #0068ff, #0055cc); color: white; font-weight: 600; cursor: pointer; margin-right: 6px; }
-        .group-settings .btn-sm-danger { background: linear-gradient(135deg, #ff4466, #cc1133); }
+        .group-settings .btn-sm { padding: 8px 16px; border: none; border-radius: 10px; background: #0068ff; color: white; font-weight: 600; cursor: pointer; margin-right: 6px; transition: 0.2s; }
+        .group-settings .btn-sm:hover { opacity: 0.9; }
+        .group-settings .btn-sm-danger { background: #ff4466; }
         .group-settings .member-list { max-height: 120px; overflow-y: auto; margin-top: 8px; }
         .group-settings .member-list .member { display: flex; justify-content: space-between; padding: 4px 0; color: #1a1a2e; font-size: 13px; border-bottom: 1px solid #f0f2f5; }
         .group-settings .avatar-large { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: 700; overflow: hidden; cursor: pointer; position: relative; background: linear-gradient(135deg, #0068ff, #0055cc); }
         .group-settings .avatar-large img { width: 100%; height: 100%; object-fit: cover; }
+        .group-settings .bg-upload { margin-top: 8px; text-align: center; }
+        .group-settings .bg-upload label { color: #0068ff; font-size: 13px; cursor: pointer; }
         
-        /* ===== MENU ===== */
+        /* Menu */
         .menu-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 999; display: none; justify-content: center; align-items: center; padding: 20px; }
         .menu-overlay.active { display: flex; }
         .menu-panel { background: #ffffff; border-radius: 20px; padding: 24px; max-width: 400px; width: 100%; max-height: 80vh; overflow-y: auto; }
@@ -108,16 +118,23 @@
         .menu-panel .item:last-child { border-bottom: none; }
         .menu-panel .item .cmd { color: #0068ff; font-weight: 600; font-family: monospace; }
         .menu-panel .item .desc { color: #8888aa; font-size: 12px; text-align: right; }
-        .menu-panel .close-btn { width: 100%; padding: 12px; margin-top: 12px; border: none; border-radius: 12px; background: linear-gradient(135deg, #ff4466, #cc1133); color: white; font-weight: 600; cursor: pointer; }
+        .menu-panel .close-btn { width: 100%; padding: 12px; margin-top: 12px; border: none; border-radius: 12px; background: #ff4466; color: white; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .menu-panel .close-btn:hover { opacity: 0.9; }
         
-        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,104,255,0.95); border: none; color: #ffffff; padding: 12px 24px; border-radius: 12px; font-size: 14px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: none; max-width: 90%; text-align: center; }
+        /* Invite Codes (Admin only) */
+        .invite-section { background: #ffffff; border-radius: 16px; padding: 16px; border: 1px solid #e8ecf1; margin-top: 10px; }
+        .invite-section .title { color: #0068ff; font-weight: 600; font-size: 16px; margin-bottom: 8px; }
+        .invite-section .codes { display: flex; flex-wrap: wrap; gap: 4px; max-height: 200px; overflow-y: auto; }
+        .invite-section .codes .code { background: #e8ecf1; color: #1a1a2e; padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 11px; }
+        
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(0,104,255,0.95); color: #ffffff; padding: 12px 24px; border-radius: 12px; font-size: 14px; z-index: 1000; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: none; max-width: 90%; text-align: center; }
         .toast.show { display: block; animation: fadeIn 0.3s ease; }
         .toast.error { background: rgba(255,68,102,0.95); }
         .toast.success { background: rgba(52,199,89,0.95); }
         @keyframes fadeIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
         
         .hidden { display: none !important; }
-        #fileInput, #groupFileInput, #profileFileInput { display: none; }
+        #fileInput, #groupFileInput, #profileFileInput, #bgFileInput { display: none; }
         .footer-text { padding: 4px 16px; text-align: center; color: #8888aa; font-size: 10px; background: #ffffff; }
         
         @media (max-width: 400px) { .container { border-radius: 16px; } .auth-screen { padding: 20px 16px; } }
@@ -129,7 +146,7 @@
 
 <div class="container">
 
-    <!-- ===== SPLASH ===== -->
+    <!-- SPLASH -->
     <div class="splash-screen active" id="splashScreen">
         <div class="logo-icon">💬</div>
         <h1>Zalo</h1>
@@ -137,7 +154,7 @@
         <div class="loading-bar"><div class="fill"></div></div>
     </div>
 
-    <!-- ===== LOGIN ===== -->
+    <!-- LOGIN -->
     <div class="screen auth-screen" id="loginScreen">
         <div class="logo">
             <h1>💬 Zalo</h1>
@@ -150,7 +167,7 @@
         <div id="loginMsg"></div>
     </div>
 
-    <!-- ===== REGISTER ===== -->
+    <!-- REGISTER (KHÔNG HIỂN THỊ MÃ MỜI) -->
     <div class="screen auth-screen" id="registerScreen">
         <div class="logo">
             <h1>💬 Zalo</h1>
@@ -159,13 +176,13 @@
         <input type="text" id="regPhone" placeholder="Số điện thoại" maxlength="11">
         <input type="text" id="regName" placeholder="Tên hiển thị">
         <input type="password" id="regPass" placeholder="Mật khẩu">
-        <input type="text" id="regInvite" placeholder="Mã mời (bắt buộc)">
+        <input type="password" id="regInvite" placeholder="Mã mời" style="display:none;">
         <button class="btn" onclick="register()">📝 ĐĂNG KÝ</button>
         <div class="switch" onclick="showLogin()">Đã có tài khoản? <span>Đăng nhập</span></div>
         <div id="regMsg"></div>
     </div>
 
-    <!-- ===== APP ===== -->
+    <!-- APP -->
     <div class="app-screen" id="appScreen">
         <div class="app-header">
             <div class="left" onclick="showGroupInfo()">
@@ -183,7 +200,7 @@
             </div>
         </div>
         <div class="app-body" id="chatBody">
-            <div class="msg bot">🤖 Chào mừng bạn đến với Zalo!<br>Gõ <span class="tag">/menu</span> để xem lệnh.<br><span class="time">Vừa xong</span></div>
+            <!-- Tin nhắn sẽ hiển thị ở đây -->
         </div>
         <div class="app-input">
             <button class="emoji-btn" onclick="insertEmoji()">😊</button>
@@ -196,20 +213,20 @@
             <button class="tab" onclick="switchTab('groups')"><span class="icon">📁</span>Nhóm</button>
             <button class="tab" onclick="switchTab('profile')"><span class="icon">👤</span>Hồ sơ</button>
         </div>
-        <div class="footer-text">© 2025 Zalo Clone - Kết nối bạn bè</div>
+        <div class="footer-text">© 2025 Zalo Clone</div>
     </div>
 
-    <!-- ===== CREATE GROUP ===== -->
+    <!-- CREATE GROUP -->
     <div class="screen auth-screen" id="createGroupScreen">
         <div class="logo"><h1 style="color:#0068ff;">📁 Tạo <span style="color:#0068ff;">Nhóm</span></h1><p>Nhập tên nhóm và mời thành viên</p></div>
         <input type="text" id="groupNameInput" placeholder="Tên nhóm">
-        <input type="text" id="groupMemberInput" placeholder="Tên thành viên (cách nhau dấu phẩy)">
+        <input type="text" id="groupMemberInput" placeholder="Số điện thoại (cách nhau dấu phẩy)">
         <button class="btn" onclick="createGroup()">📁 TẠO NHÓM</button>
         <button class="btn btn-secondary" onclick="closeCreateGroup()" style="margin-top:8px;">❌ HỦY</button>
         <div id="createGroupMsg"></div>
     </div>
 
-    <!-- ===== GROUP INFO ===== -->
+    <!-- GROUP INFO -->
     <div class="screen auth-screen" id="groupInfoScreen">
         <div class="logo"><h1 style="color:#0068ff;">📋 Thông tin <span style="color:#0068ff;">Nhóm</span></h1></div>
         <div class="group-settings">
@@ -219,6 +236,10 @@
                 </div>
                 <div style="color:#8888aa;font-size:11px;cursor:pointer;" onclick="document.getElementById('groupFileInput').click()">📸 Thay đổi avatar</div>
             </div>
+            <div class="bg-upload">
+                <label onclick="document.getElementById('bgFileInput').click()">🖼️ Đổi hình nền nhóm</label>
+                <input type="file" id="bgFileInput" accept="image/*" onchange="uploadGroupBg(event)">
+            </div>
             <input type="text" id="groupInfoName" placeholder="Tên nhóm" onchange="updateGroupName()">
             <div class="member-list" id="groupInfoMembers"></div>
             <button class="btn-sm btn-sm-danger" onclick="leaveGroup()">🚪 Rời nhóm</button>
@@ -226,7 +247,7 @@
         </div>
     </div>
 
-    <!-- ===== PROFILE ===== -->
+    <!-- PROFILE -->
     <div class="screen auth-screen" id="profileScreen">
         <div class="logo"><h1 style="color:#0068ff;">👤 Hồ sơ <span style="color:#0068ff;">của tôi</span></h1></div>
         <div class="profile-box">
@@ -235,7 +256,8 @@
                 <div class="upload-overlay">📸 Đổi ảnh</div>
                 <input type="file" id="profileFileInput" accept="image/*" onchange="uploadProfileAvatar(event)">
             </div>
-            <input class="name-input" id="profileName" placeholder="Tên của bạn" onchange="updateProfileName()">
+            <input class="name-input" id="profileName" placeholder="Tên của bạn" onchange="updateProfileName()" readonly>
+            <div class="name-lock" id="nameLockInfo">⏳ Có thể đổi tên sau 20 ngày</div>
             <div class="info-row"><span class="label">📱 Số điện thoại</span><span class="value" id="profilePhone">---</span></div>
             <div class="info-row"><span class="label">🆔 ID</span><span class="value" id="profileId">---</span></div>
             <div class="info-row"><span class="label">🔑 Vai trò</span><span class="value" id="profileRole">---</span></div>
@@ -243,9 +265,14 @@
             <div class="info-row"><span class="label">👥 Bạn bè</span><span class="value" id="profileFriends">0</span></div>
             <button class="btn" onclick="closeProfile()" style="margin-top:12px;">🔙 Quay lại</button>
         </div>
+        <!-- Invite Codes - Chỉ admin mới thấy -->
+        <div class="invite-section hidden" id="inviteSection">
+            <div class="title">🔑 DANH SÁCH MÃ MỜI (100 MÃ)</div>
+            <div class="codes" id="inviteCodesList"></div>
+        </div>
     </div>
 
-    <!-- ===== FRIENDS ===== -->
+    <!-- FRIENDS -->
     <div class="screen auth-screen" id="friendsScreen">
         <div class="logo"><h1 style="color:#0068ff;">👥 Bạn <span style="color:#0068ff;">bè</span></h1><p>Danh sách bạn bè</p></div>
         <div id="friendsList" style="margin-top:10px;"></div>
@@ -254,7 +281,7 @@
         <button class="btn btn-secondary" onclick="closeFriends()" style="margin-top:6px;">🔙 Quay lại</button>
     </div>
 
-    <!-- ===== GROUPS LIST ===== -->
+    <!-- GROUPS LIST -->
     <div class="screen auth-screen" id="groupsListScreen">
         <div class="logo"><h1 style="color:#0068ff;">📁 Danh sách <span style="color:#0068ff;">Nhóm</span></h1></div>
         <div id="groupsList" style="margin-top:10px;"></div>
@@ -263,7 +290,7 @@
 
 </div>
 
-<!-- ===== MENU ===== -->
+<!-- MENU -->
 <div class="menu-overlay" id="menuOverlay">
     <div class="menu-panel">
         <div class="title">📋 MENU LỆNH</div>
@@ -286,23 +313,35 @@
 
 <script>
 // ============================================================
-// DỮ LIỆU - ADMIN ẨN TRONG CODE
+// DỮ LIỆU
 // ============================================================
 
-// ADMIN ACCOUNT - ẨN HOÀN TOÀN
 const ADMIN_PHONE = '0988888888';
 const ADMIN_PASSWORD = 'zaloclone';
 const ADMIN_INVITE = 'zaloclone001';
 const ADMIN_NAME = 'Zalo Admin';
 const ADMIN_ROLES = ['truong', 'pho'];
+const NAME_CHANGE_COOLDOWN = 20; // 20 ngày
+
+// Tạo 100 mã mời
+function generateInviteCodes() {
+    const codes = [];
+    for (let i = 1; i <= 100; i++) {
+        const num = String(i).padStart(3, '0');
+        const suffix = String(Math.floor(Math.random() * 9000 + 1000));
+        codes.push('ZL' + num + 'MK' + suffix);
+    }
+    return codes;
+}
+const INVITE_CODES = generateInviteCodes();
 
 // ============================================================
-// KHỞI TẠO DATABASE
+// DATABASE
 // ============================================================
 
-let users = JSON.parse(localStorage.getItem('zl_users_v3') || '{}');
-let groups = JSON.parse(localStorage.getItem('zl_groups_v3') || '{}');
-let friends = JSON.parse(localStorage.getItem('zl_friends_v3') || '{}');
+let users = JSON.parse(localStorage.getItem('zl_users_v5') || '{}');
+let groups = JSON.parse(localStorage.getItem('zl_groups_v5') || '{}');
+let friends = JSON.parse(localStorage.getItem('zl_friends_v5') || '{}');
 let currentUser = null;
 let currentGroup = null;
 let spamInterval = null;
@@ -332,24 +371,14 @@ if (!adminExists) {
         avatar: '👑',
         id: adminId,
         isAdmin: true,
-        friends: []
+        friends: [],
+        lastNameChange: Date.now()
     };
 }
 
-// Tạo nhóm mặc định
-if (Object.keys(groups).length === 0) {
-    groups['default'] = {
-        name: 'Nhóm Chat Pro',
-        owner: ADMIN_PHONE,
-        members: [ADMIN_PHONE],
-        messages: [],
-        avatar: 'G'
-    };
-}
-
-localStorage.setItem('zl_users_v3', JSON.stringify(users));
-localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-localStorage.setItem('zl_friends_v3', JSON.stringify(friends));
+localStorage.setItem('zl_users_v5', JSON.stringify(users));
+localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+localStorage.setItem('zl_friends_v5', JSON.stringify(friends));
 
 // ============================================================
 // SPLASH
@@ -374,6 +403,10 @@ function showLogin() {
     document.getElementById('loginScreen').classList.add('active');
 }
 
+function isValidPhone(phone) {
+    return /^\d{10,11}$/.test(phone);
+}
+
 function register() {
     const phone = document.getElementById('regPhone').value.trim();
     const name = document.getElementById('regName').value.trim();
@@ -381,19 +414,19 @@ function register() {
     const invite = document.getElementById('regInvite').value.trim().toLowerCase();
     const msg = document.getElementById('regMsg');
     
-    if (!phone || !name || !pass || !invite) {
+    if (!phone || !name || !pass) {
         msg.innerHTML = '<div class="error">⚠️ Vui lòng nhập đầy đủ!</div>';
         return;
     }
-    if (!/^\d{10,11}$/.test(phone)) {
-        msg.innerHTML = '<div class="error">⚠️ Số điện thoại không hợp lệ!</div>';
+    if (!isValidPhone(phone)) {
+        msg.innerHTML = '<div class="error">⚠️ Số điện thoại không hợp lệ (10-11 số)!</div>';
         return;
     }
     if (users[phone]) {
         msg.innerHTML = '<div class="error">❌ Số điện thoại đã tồn tại!</div>';
         return;
     }
-    // Kiểm tra mã mời (chỉ admin mới biết)
+    // Mã mời bắt buộc nhưng không hiển thị
     if (invite !== ADMIN_INVITE) {
         msg.innerHTML = '<div class="error">❌ Mã mời không hợp lệ!</div>';
         return;
@@ -410,9 +443,10 @@ function register() {
         avatar: '👤',
         id: userId,
         isAdmin: false,
-        friends: []
+        friends: [],
+        lastNameChange: Date.now()
     };
-    localStorage.setItem('zl_users_v3', JSON.stringify(users));
+    localStorage.setItem('zl_users_v5', JSON.stringify(users));
     msg.innerHTML = '<div class="success">✅ Đăng ký thành công! ID: ' + userId + '</div>';
     showToast('✅ Đăng ký thành công! ID: ' + userId, 'success');
     setTimeout(() => showLogin(), 1500);
@@ -427,6 +461,10 @@ function login() {
         msg.innerHTML = '<div class="error">⚠️ Vui lòng nhập đầy đủ!</div>';
         return;
     }
+    if (!isValidPhone(phone)) {
+        msg.innerHTML = '<div class="error">⚠️ Số điện thoại không hợp lệ!</div>';
+        return;
+    }
     if (!users[phone]) {
         msg.innerHTML = '<div class="error">❌ Số điện thoại chưa đăng ký!</div>';
         return;
@@ -437,7 +475,7 @@ function login() {
     }
     
     currentUser = phone;
-    localStorage.setItem('zl_current_user_v3', phone);
+    localStorage.setItem('zl_current_user_v5', phone);
     msg.innerHTML = '<div class="success">✅ Đăng nhập thành công!</div>';
     showToast('✅ Chào mừng ' + users[phone].name + '!', 'success');
     startApp();
@@ -449,7 +487,7 @@ function logout() {
     if (tagInterval) { clearInterval(tagInterval); tagInterval = null; }
     currentUser = null;
     currentGroup = null;
-    localStorage.removeItem('zl_current_user_v3');
+    localStorage.removeItem('zl_current_user_v5');
     document.getElementById('appScreen').classList.remove('active');
     document.getElementById('loginScreen').classList.add('active');
     document.getElementById('loginMsg').innerHTML = '';
@@ -465,25 +503,41 @@ function startApp() {
     document.getElementById('registerScreen').classList.remove('active');
     document.getElementById('appScreen').classList.add('active');
     
+    // Kiểm tra nếu chưa có nhóm nào thì hiển thị empty state
     const userGroups = users[currentUser]?.groups || [];
-    if (userGroups.length > 0 && groups[userGroups[0]]) {
-        currentGroup = userGroups[0];
+    if (userGroups.length === 0) {
+        // Tạo nhóm mặc định với bot
+        createDefaultGroup();
     } else {
-        currentGroup = 'default';
-        if (!groups[currentGroup].members.includes(currentUser)) {
-            groups[currentGroup].members.push(currentUser);
-            if (!users[currentUser].groups) users[currentUser].groups = [];
-            if (!users[currentUser].groups.includes(currentGroup)) {
-                users[currentUser].groups.push(currentGroup);
-            }
-            localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-            localStorage.setItem('zl_users_v3', JSON.stringify(users));
-        }
+        currentGroup = userGroups[0];
     }
     updateGroupInfo();
     loadMessages();
     addSystemMsg('✅ ' + users[currentUser].name + ' đã vào nhóm!');
     switchTab('chat');
+}
+
+function createDefaultGroup() {
+    const groupId = 'group_' + Date.now();
+    groups[groupId] = {
+        name: 'Nhóm của tôi',
+        owner: currentUser,
+        members: [currentUser],
+        messages: [],
+        avatar: '👥',
+        botName: 'Bot ' + users[currentUser].name,
+        botActive: true
+    };
+    if (!users[currentUser].groups) users[currentUser].groups = [];
+    users[currentUser].groups.push(groupId);
+    localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+    localStorage.setItem('zl_users_v5', JSON.stringify(users));
+    currentGroup = groupId;
+    // Bot chào
+    setTimeout(() => {
+        addBotMsg('🤖 Chào mừng bạn! Tôi là bot của nhóm này.');
+        addBotMsg('📌 Gõ /menu để xem các lệnh quản lý nhóm.');
+    }, 500);
 }
 
 function updateGroupInfo() {
@@ -497,6 +551,16 @@ function updateGroupInfo() {
         avatarEl.textContent = g.avatar || g.name?.charAt(0).toUpperCase() || 'G';
     }
     document.getElementById('memberCount').textContent = '👥 ' + (g.members?.length || 1) + ' thành viên';
+    
+    // Cập nhật hình nền nếu có
+    if (g.bgData) {
+        document.getElementById('chatBody').style.backgroundImage = `url(${g.bgData})`;
+        document.getElementById('chatBody').style.backgroundSize = 'cover';
+        document.getElementById('chatBody').style.backgroundPosition = 'center';
+    } else {
+        document.getElementById('chatBody').style.backgroundImage = '';
+        document.getElementById('chatBody').style.background = '#f0f2f5';
+    }
 }
 
 function loadMessages() {
@@ -510,7 +574,7 @@ function loadMessages() {
             body.innerHTML += `<div class="msg ${cls}">${m.text}<span class="time">${m.time || 'Vừa xong'}</span></div>`;
         });
     } else {
-        body.innerHTML = `<div class="msg bot">🤖 Chào mừng đến với Zalo!<br>Gõ <span class="tag">/menu</span> để xem lệnh.<br><span class="time">Vừa xong</span></div>`;
+        body.innerHTML = `<div class="msg bot">🤖 Chào mừng đến nhóm!<br>Gõ <span class="tag">/menu</span> để xem lệnh.<br><span class="time">Vừa xong</span></div>`;
     }
     body.scrollTop = body.scrollHeight;
 }
@@ -521,16 +585,76 @@ function addMessage(text, sender = 'user') {
     const time = new Date().toLocaleTimeString('vi-VN');
     if (!g.messages) g.messages = [];
     g.messages.push({ text, sender, time });
-    localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
     const body = document.getElementById('chatBody');
     const cls = sender === 'bot' ? 'bot' : (sender === 'system' ? 'system' : 'user');
     body.innerHTML += `<div class="msg ${cls}">${text}<span class="time">${time}</span></div>`;
     body.scrollTop = body.scrollHeight;
+    
+    // REAL-TIME: Gửi tin nhắn đến các máy khác (thông qua localStorage)
+    broadcastMessage(currentGroup, text, sender, time);
 }
 
 function addBotMsg(text) { addMessage(text, 'bot'); }
 function addSystemMsg(text) { addMessage(text, 'system'); }
 function addUserMsg(text) { addMessage(text, 'user'); }
+
+// ============================================================
+// REAL-TIME MESSAGE BROADCAST (Máy chủ local)
+// ============================================================
+
+function broadcastMessage(groupId, text, sender, time) {
+    // Lưu tin nhắn vào storage để các tab/máy khác đọc
+    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast') || '{}');
+    const key = 'msg_' + groupId + '_' + Date.now();
+    broadcast[key] = { groupId, text, sender, time };
+    // Giữ tối đa 100 tin nhắn
+    const keys = Object.keys(broadcast);
+    if (keys.length > 100) {
+        delete broadcast[keys[0]];
+    }
+    localStorage.setItem('zl_broadcast', JSON.stringify(broadcast));
+}
+
+// Lắng nghe tin nhắn từ các máy khác
+function listenBroadcast() {
+    const lastCheck = localStorage.getItem('zl_last_check') || '0';
+    const broadcast = JSON.parse(localStorage.getItem('zl_broadcast') || '{}');
+    const now = Date.now();
+    let newMessages = false;
+    
+    for (const [key, data] of Object.entries(broadcast)) {
+        if (key > lastCheck && data.groupId === currentGroup) {
+            // Nhận tin nhắn từ người khác
+            if (data.sender !== currentUser && data.sender !== 'bot' && data.sender !== 'system') {
+                const body = document.getElementById('chatBody');
+                const cls = 'bot';
+                body.innerHTML += `<div class="msg ${cls}">${data.text}<span class="time">${data.time || 'Vừa xong'}</span></div>`;
+                body.scrollTop = body.scrollHeight;
+                newMessages = true;
+            }
+        }
+    }
+    
+    if (newMessages) {
+        // Cập nhật tin nhắn vào group
+        const g = groups[currentGroup];
+        if (g) {
+            for (const [key, data] of Object.entries(broadcast)) {
+                if (key > lastCheck && data.groupId === currentGroup && data.sender !== currentUser && data.sender !== 'bot' && data.sender !== 'system') {
+                    if (!g.messages) g.messages = [];
+                    g.messages.push({ text: data.text, sender: 'bot', time: data.time || 'Vừa xong' });
+                }
+            }
+            localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+        }
+    }
+    
+    localStorage.setItem('zl_last_check', String(now));
+}
+
+// Kiểm tra tin nhắn mới mỗi 2 giây
+setInterval(listenBroadcast, 2000);
 
 // ============================================================
 // SEND MESSAGE
@@ -558,13 +682,14 @@ function sendMessage() {
                 const lastMsg = body.querySelector('.msg.user:last-child');
                 if (lastMsg) lastMsg.remove();
                 groups[currentGroup].messages.pop();
-                localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+                localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
                 addBotMsg('🚫 Bạn không được gửi link! Chỉ admin mới được.');
                 return;
             }
         }
     }
     
+    // Bot reply tự nhiên
     setTimeout(() => {
         if (Math.random() < 0.08) {
             const replies = ['Ừ!', 'OK!', 'Hi!', 'Chào!', '👍', '😄'];
@@ -652,7 +777,7 @@ function handleCommand(cmd) {
             if (tag === currentUser) { addBotMsg('❌ Không thể kick chính mình!'); return; }
             if (users[tag]?.isAdmin) { addBotMsg('❌ Không thể kick Admin!'); return; }
             g.members = g.members.filter(m => m !== tag);
-            localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
             addSystemMsg(`🚫 ${users[tag]?.name || tag} đã bị kick khỏi nhóm!`);
             updateGroupInfo();
             break;
@@ -664,7 +789,7 @@ function handleCommand(cmd) {
         case '/clear':
             document.getElementById('chatBody').innerHTML = '';
             groups[currentGroup].messages = [];
-            localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+            localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
             addBotMsg('🧹 Đã xóa hết tin nhắn!');
             break;
         case '/status':
@@ -695,7 +820,7 @@ function uploadProfileAvatar(event) {
         const dataUrl = e.target.result;
         users[currentUser].avatarData = dataUrl;
         users[currentUser].avatar = '📷';
-        localStorage.setItem('zl_users_v3', JSON.stringify(users));
+        localStorage.setItem('zl_users_v5', JSON.stringify(users));
         document.getElementById('profileAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;"><div class="upload-overlay">📸 Đổi ảnh</div>`;
         showToast('✅ Đã đổi avatar!', 'success');
         updateGroupInfo();
@@ -711,9 +836,23 @@ function uploadGroupAvatar(event) {
         const dataUrl = e.target.result;
         groups[currentGroup].avatarData = dataUrl;
         groups[currentGroup].avatar = '📷';
-        localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+        localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
         document.getElementById('groupInfoAvatar').innerHTML = `<img src="${dataUrl}" style="width:100%;height:100%;object-fit:cover;">`;
         showToast('✅ Đã đổi avatar nhóm!', 'success');
+        updateGroupInfo();
+    };
+    reader.readAsDataURL(file);
+}
+
+function uploadGroupBg(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        groups[currentGroup].bgData = dataUrl;
+        localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+        showToast('✅ Đã đổi hình nền nhóm!', 'success');
         updateGroupInfo();
     };
     reader.readAsDataURL(file);
@@ -744,7 +883,9 @@ function createGroup() {
         owner: currentUser,
         members: [currentUser, ...members.filter(m => users[m])],
         messages: [],
-        avatar: '📁'
+        avatar: '📁',
+        botName: 'Bot ' + name,
+        botActive: true
     };
     if (!users[currentUser].groups) users[currentUser].groups = [];
     users[currentUser].groups.push(groupId);
@@ -752,15 +893,19 @@ function createGroup() {
         if (!users[m].groups) users[m].groups = [];
         if (!users[m].groups.includes(groupId)) users[m].groups.push(groupId);
     });
-    localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-    localStorage.setItem('zl_users_v3', JSON.stringify(users));
+    localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+    localStorage.setItem('zl_users_v5', JSON.stringify(users));
     msg.innerHTML = '<div class="success">✅ Tạo nhóm thành công!</div>';
     showToast('✅ Đã tạo nhóm ' + name, 'success');
     currentGroup = groupId;
     closeCreateGroup();
     updateGroupInfo();
     loadMessages();
-    addSystemMsg(`📁 Nhóm "${name}" đã được tạo!`);
+    // Bot chào
+    setTimeout(() => {
+        addBotMsg('🤖 Chào mừng đến nhóm ' + name + '!');
+        addBotMsg('📌 Tôi là bot của nhóm này. Gõ /menu để xem lệnh.');
+    }, 500);
     document.getElementById('groupNameInput').value = '';
     document.getElementById('groupMemberInput').value = '';
     document.getElementById('createGroupMsg').innerHTML = '';
@@ -803,7 +948,7 @@ function updateGroupName() {
     const name = document.getElementById('groupInfoName').value.trim();
     if (!name) return;
     groups[currentGroup].name = name;
-    localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
+    localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
     updateGroupInfo();
     showToast('✅ Đã đổi tên nhóm thành: ' + name, 'success');
 }
@@ -816,24 +961,16 @@ function leaveGroup() {
         delete groups[currentGroup];
         const userGroups = users[currentUser].groups.filter(id => id !== currentGroup);
         users[currentUser].groups = userGroups;
-        localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-        localStorage.setItem('zl_users_v3', JSON.stringify(users));
+        localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+        localStorage.setItem('zl_users_v5', JSON.stringify(users));
         currentGroup = null;
         closeGroupInfo();
         showToast('🗑️ Đã rời và xóa nhóm!', '');
-        if (userGroups.length > 0 && groups[userGroups[0]]) {
-            currentGroup = userGroups[0];
+        const userGroups2 = users[currentUser]?.groups || [];
+        if (userGroups2.length > 0 && groups[userGroups2[0]]) {
+            currentGroup = userGroups2[0];
         } else {
-            currentGroup = 'default';
-            if (!groups[currentGroup].members.includes(currentUser)) {
-                groups[currentGroup].members.push(currentUser);
-                if (!users[currentUser].groups) users[currentUser].groups = [];
-                if (!users[currentUser].groups.includes(currentGroup)) {
-                    users[currentUser].groups.push(currentGroup);
-                }
-                localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-                localStorage.setItem('zl_users_v3', JSON.stringify(users));
-            }
+            createDefaultGroup();
         }
         updateGroupInfo();
         loadMessages();
@@ -843,24 +980,16 @@ function leaveGroup() {
     g.members = g.members.filter(m => m !== currentUser);
     const userGroups = users[currentUser].groups.filter(id => id !== currentGroup);
     users[currentUser].groups = userGroups;
-    localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-    localStorage.setItem('zl_users_v3', JSON.stringify(users));
+    localStorage.setItem('zl_groups_v5', JSON.stringify(groups));
+    localStorage.setItem('zl_users_v5', JSON.stringify(users));
     currentGroup = null;
     closeGroupInfo();
     showToast('🚪 Đã rời nhóm!', '');
-    if (userGroups.length > 0 && groups[userGroups[0]]) {
-        currentGroup = userGroups[0];
+    const userGroups2 = users[currentUser]?.groups || [];
+    if (userGroups2.length > 0 && groups[userGroups2[0]]) {
+        currentGroup = userGroups2[0];
     } else {
-        currentGroup = 'default';
-        if (!groups[currentGroup].members.includes(currentUser)) {
-            groups[currentGroup].members.push(currentUser);
-            if (!users[currentUser].groups) users[currentUser].groups = [];
-            if (!users[currentUser].groups.includes(currentGroup)) {
-                users[currentUser].groups.push(currentGroup);
-            }
-            localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-            localStorage.setItem('zl_users_v3', JSON.stringify(users));
-        }
+        createDefaultGroup();
     }
     updateGroupInfo();
     loadMessages();
@@ -881,11 +1010,35 @@ function showProfile() {
     document.getElementById('profileGroups').textContent = u?.groups?.length || 0;
     document.getElementById('profileFriends').textContent = (friends[currentUser]?.length || 0);
     document.getElementById('profileName').value = u?.name || '';
+    
+    // Kiểm tra thời gian đổi tên
+    const lastChange = u?.lastNameChange || 0;
+    const daysPassed = Math.floor((Date.now() - lastChange) / (1000 * 60 * 60 * 24));
+    if (daysPassed >= NAME_CHANGE_COOLDOWN) {
+        document.getElementById('profileName').readOnly = false;
+        document.getElementById('nameLockInfo').textContent = '✅ Có thể đổi tên ngay';
+        document.getElementById('nameLockInfo').style.color = '#34c759';
+    } else {
+        document.getElementById('profileName').readOnly = true;
+        const remaining = NAME_CHANGE_COOLDOWN - daysPassed;
+        document.getElementById('nameLockInfo').textContent = `⏳ Có thể đổi tên sau ${remaining} ngày nữa`;
+        document.getElementById('nameLockInfo').style.color = '#ff6b6b';
+    }
+    
     const avatarEl = document.getElementById('profileAvatar');
     if (u?.avatarData) {
         avatarEl.innerHTML = `<img src="${u.avatarData}" style="width:100%;height:100%;object-fit:cover;"><div class="upload-overlay">📸 Đổi ảnh</div>`;
     } else {
         avatarEl.innerHTML = `<span id="profileAvatarText">${u?.avatar || '👤'}</span><div class="upload-overlay">📸 Đổi ảnh</div>`;
+    }
+    
+    // Hiển thị mã mời nếu là admin
+    if (u?.isAdmin) {
+        document.getElementById('inviteSection').classList.remove('hidden');
+        const codesList = document.getElementById('inviteCodesList');
+        codesList.innerHTML = INVITE_CODES.map(c => `<span class="code">${c}</span>`).join('');
+    } else {
+        document.getElementById('inviteSection').classList.add('hidden');
     }
 }
 
@@ -898,9 +1051,21 @@ function closeProfile() {
 function updateProfileName() {
     const name = document.getElementById('profileName').value.trim();
     if (!name) return;
-    users[currentUser].name = name;
-    localStorage.setItem('zl_users_v3', JSON.stringify(users));
+    const u = users[currentUser];
+    const lastChange = u?.lastNameChange || 0;
+    const daysPassed = Math.floor((Date.now() - lastChange) / (1000 * 60 * 60 * 24));
+    if (daysPassed < NAME_CHANGE_COOLDOWN) {
+        showToast(`⚠️ Chưa đủ 20 ngày! Còn ${NAME_CHANGE_COOLDOWN - daysPassed} ngày nữa.`, 'error');
+        document.getElementById('profileName').value = u?.name || '';
+        return;
+    }
+    u.name = name;
+    u.lastNameChange = Date.now();
+    localStorage.setItem('zl_users_v5', JSON.stringify(users));
     showToast('✅ Đã cập nhật tên: ' + name, 'success');
+    document.getElementById('profileName').readOnly = true;
+    document.getElementById('nameLockInfo').textContent = '⏳ Có thể đổi tên sau 20 ngày nữa';
+    document.getElementById('nameLockInfo').style.color = '#ff6b6b';
 }
 
 // ============================================================
@@ -923,7 +1088,7 @@ function renderFriends() {
     const list = document.getElementById('friendsList');
     const friendList = friends[currentUser] || [];
     if (friendList.length === 0) {
-        list.innerHTML = '<div style="color:#8888aa;text-align:center;padding:20px;">Chưa có bạn bè. Hãy kết bạn bằng ID!</div>';
+        list.innerHTML = `<div class="empty-state"><div class="icon">👥</div><h3>Chưa có bạn bè</h3><p>Hãy kết bạn bằng ID để trò chuyện</p></div>`;
         return;
     }
     list.innerHTML = friendList.map(f => {
@@ -951,7 +1116,7 @@ function addFriend() {
     friends[currentUser].push(targetUser);
     if (!friends[targetUser]) friends[targetUser] = [];
     if (!friends[targetUser].includes(currentUser)) friends[targetUser].push(currentUser);
-    localStorage.setItem('zl_friends_v3', JSON.stringify(friends));
+    localStorage.setItem('zl_friends_v5', JSON.stringify(friends));
     document.getElementById('addFriendInput').value = '';
     renderFriends();
     showToast('✅ Đã kết bạn với ' + users[targetUser].name + '!', 'success');
@@ -977,7 +1142,7 @@ function renderGroupsList() {
     const list = document.getElementById('groupsList');
     const userGroups = users[currentUser]?.groups || [];
     if (userGroups.length === 0) {
-        list.innerHTML = '<div style="color:#8888aa;text-align:center;padding:20px;">Bạn chưa tham gia nhóm nào.</div>';
+        list.innerHTML = `<div class="empty-state"><div class="icon">📁</div><h3>Chưa có nhóm</h3><p>Hãy tạo nhóm để trò chuyện cùng bạn bè</p></div>`;
         return;
     }
     list.innerHTML = userGroups.map(id => {
@@ -1053,23 +1218,14 @@ function showToast(msg, type = '') {
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    const savedUser = localStorage.getItem('zl_current_user_v3');
+    const savedUser = localStorage.getItem('zl_current_user_v5');
     if (savedUser && users[savedUser]) {
         currentUser = savedUser;
         const userGroups = users[currentUser]?.groups || [];
         if (userGroups.length > 0 && groups[userGroups[0]]) {
             currentGroup = userGroups[0];
         } else {
-            currentGroup = 'default';
-            if (!groups[currentGroup].members.includes(currentUser)) {
-                groups[currentGroup].members.push(currentUser);
-                if (!users[currentUser].groups) users[currentUser].groups = [];
-                if (!users[currentUser].groups.includes(currentGroup)) {
-                    users[currentUser].groups.push(currentGroup);
-                }
-                localStorage.setItem('zl_groups_v3', JSON.stringify(groups));
-                localStorage.setItem('zl_users_v3', JSON.stringify(users));
-            }
+            createDefaultGroup();
         }
         document.getElementById('splashScreen').classList.remove('active');
         document.getElementById('loginScreen').classList.remove('active');
